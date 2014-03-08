@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
+import com.ta.pojo.Location;
 import com.ta.pojo.User;
 import com.ta.service.ServiceAllocable;
 import com.ta.service.ServiceAuthentification;
@@ -57,6 +58,16 @@ public class MainActivity extends Activity {
 		List<Integer> monoAllocablePossibleNbSeat = alloc.GetMonoAllocablePossibleNbSeat();
 		for(int nbSeat : monoAllocablePossibleNbSeat){
 			sb.append("nbSeat : " + nbSeat + "\n"); 
+		}
+		
+		List<String> monoAllocableEquips = alloc.GetMonoAllocableEquips();
+		for(String equip : monoAllocableEquips){
+			sb.append("equip : " + equip + "\n"); 
+		}
+		
+		List<Location> locations = alloc.GetAllLocations();
+		for(Location location : locations){
+			sb.append("location : " + location.getName() + "\n"); 
 		}
 		
 		tv.setText("result of wcf : \n" + sb.toString());

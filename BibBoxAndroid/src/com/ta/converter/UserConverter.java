@@ -13,9 +13,8 @@ import com.ta.pojo.User;
  * @copyright TA Copyright
  * @brief La classe de converteur qui convert un soap objet User à un POJO User
  */
-public class UserConverter implements IConverter<User>{
+public class UserConverter {
 
-	@Override
 	public User convertToObject(SoapObject soapObject) {
 		if(soapObject == null) { return null; }
 		try{
@@ -27,17 +26,13 @@ public class UserConverter implements IConverter<User>{
 			u.setEmail(soapObject.getProperty("Email").toString());
 			u.setLogin(soapObject.getProperty("Login").toString());
 			u.setPassword(soapObject.getProperty("Password").toString());
-			System.out.println("titi11");
-			System.out.println("titi111 : " + soapObject.getProperty("Role"));
 			u.setRole(UserRoleConverter.instance().convertToObject(soapObject.getProperty("Role").toString()));
-			System.out.println("titi2");
 			return u;
 		} catch(Exception e){
 			return null;
 		}
 	}
 
-	@Override
 	public List<User> convertToListObject(SoapObject soapObject) {
 		if(soapObject == null) { return null; }
 		List<User> users = new ArrayList<User>();

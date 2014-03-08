@@ -1,6 +1,6 @@
 package com.ta.pojo;
 
-import com.ta.datentime.TimeSpan;
+import org.joda.time.Interval;
 
 /**
  * @author Jing SHU
@@ -12,8 +12,8 @@ public class Location {
 	private int id;
 	private String name;
 	private String address;
-	private TimeSpan beginReservTime;
-	private TimeSpan endReservTime;
+	private Interval beginReservTime;
+	private Interval endReservTime;
 	
 	public int getId() {
 		return id;
@@ -33,16 +33,16 @@ public class Location {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public TimeSpan getBeginReservTime() {
+	public Interval getBeginReservTime() {
 		return beginReservTime;
 	}
-	public void setBeginReservTime(TimeSpan beginReservTime) {
+	public void setBeginReservTime(Interval beginReservTime) {
 		this.beginReservTime = beginReservTime;
 	}
-	public TimeSpan getEndReservTime() {
+	public Interval getEndReservTime() {
 		return endReservTime;
 	}
-	public void setEndReservTime(TimeSpan endReservTime) {
+	public void setEndReservTime(Interval endReservTime) {
 		this.endReservTime = endReservTime;
 	}
 	

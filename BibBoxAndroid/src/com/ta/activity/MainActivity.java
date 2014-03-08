@@ -1,5 +1,7 @@
 package com.ta.activity;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -9,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
 import com.ta.pojo.User;
+import com.ta.service.ServiceAllocable;
 import com.ta.service.ServiceAuthentification;
 import com.ta.service.ServiceSystemParameter;
 
@@ -49,6 +52,12 @@ public class MainActivity extends Activity {
 		sb.append("reservationMinInterval : " + reservationMinInterval + "\n"); 
 		int maxReservDays = sysParam.GetMaxReservDays();
 		sb.append("maxReservDays : " + maxReservDays + "\n"); 
+		
+		ServiceAllocable alloc = new ServiceAllocable();
+		List<Integer> monoAllocablePossibleNbSeat = alloc.GetMonoAllocablePossibleNbSeat();
+		for(int nbSeat : monoAllocablePossibleNbSeat){
+			sb.append("nbSeat : " + nbSeat + "\n"); 
+		}
 		
 		tv.setText("result of wcf : \n" + sb.toString());
 		setContentView(tv);

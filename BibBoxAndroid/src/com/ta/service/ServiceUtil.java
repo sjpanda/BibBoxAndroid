@@ -5,6 +5,12 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+/**
+ * @author Jing SHU
+ * @date 07/03/2014
+ * @copyright TA Copyright
+ * @brief La classe qui appelle effectivement les web services
+ */
 public class ServiceUtil {
 	private static String URL = "";
 	private static String SOAP_ACTION = "";

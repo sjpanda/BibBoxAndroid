@@ -6,7 +6,6 @@ import java.util.List;
 import org.ksoap2.serialization.SoapObject;
 
 import com.ta.pojo.User;
-import com.ta.pojo.UserRole;
 
 /**
  * @author Jing SHU
@@ -28,8 +27,10 @@ public class UserConverter implements IConverter<User>{
 			u.setEmail(soapObject.getProperty("Email").toString());
 			u.setLogin(soapObject.getProperty("Login").toString());
 			u.setPassword(soapObject.getProperty("Password").toString());
-			//u.setRole((UserRole)soapObject.getProperty("Role"));
-			u.setRole(UserRole.Basic);
+			System.out.println("titi11");
+			System.out.println("titi111 : " + soapObject.getProperty("Role"));
+			u.setRole(UserRoleConverter.instance().convertToObject(soapObject.getProperty("Role").toString()));
+			System.out.println("titi2");
 			return u;
 		} catch(Exception e){
 			return null;

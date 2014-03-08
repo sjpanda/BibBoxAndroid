@@ -6,43 +6,36 @@ package com.ta.pojo;
  * @copyright TA Copyright
  * @brief Le POJO qui représente un type de pc
  */
-public class PCType {
-	private int ID;
-	private String Brand;
-	private String CPU;
-	private String DiskSize;
-	private String RAM;
+public class PCType extends Type {
+	private String brand;
+	private String cpu;
+	private String diskSize;
+	private String ram;
 	
-	public int getID() {
-		return ID;
-	}
-	public void setID(int iD) {
-		ID = iD;
-	}
 	public String getBrand() {
-		return Brand;
+		return brand;
 	}
 	public void setBrand(String brand) {
-		Brand = brand;
+		this.brand = brand;
 	}
-	public String getCPU() {
-		return CPU;
+	public String getCpu() {
+		return cpu;
 	}
-	public void setCPU(String cPU) {
-		CPU = cPU;
+	public void setCpu(String cpu) {
+		this.cpu = cpu;
 	}
 	public String getDiskSize() {
-		return DiskSize;
+		return diskSize;
 	}
 	public void setDiskSize(String diskSize) {
-		DiskSize = diskSize;
+		this.diskSize = diskSize;
 	}
-	public String getRAM() {
-		return RAM;
+	public String getRam() {
+		return ram;
 	}
-	public void setRAM(String rAM) {
-		RAM = rAM;
+	public void setRam(String ram) {
+		this.ram = ram;
 	}
 	
-	
+
 }

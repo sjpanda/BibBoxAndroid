@@ -7,63 +7,61 @@ package com.ta.pojo;
  * @brief Le POJO qui représente un utilisateur
  */
 public class User {
-	private int ID;
-    private String Address;
-    private String Email;
-    private String FirstName;
-    private String LastName;
-    private String Login;
-    private String Password;
-    private UserRole Role;
+	private int id;
+    private String address;
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String login;
+    private String password;
+    private UserRole role;
     
-	public int getID() {
-		return ID;
+	public int getId() {
+		return id;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getAddress() {
-		return Address;
+		return address;
 	}
 	public void setAddress(String address) {
-		Address = address;
+		this.address = address;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
 	public String getFirstName() {
-		return FirstName;
+		return firstName;
 	}
 	public void setFirstName(String firstName) {
-		FirstName = firstName;
+		this.firstName = firstName;
 	}
 	public String getLastName() {
-		return LastName;
+		return lastName;
 	}
 	public void setLastName(String lastName) {
-		LastName = lastName;
+		this.lastName = lastName;
 	}
 	public String getLogin() {
-		return Login;
+		return login;
 	}
 	public void setLogin(String login) {
-		Login = login;
+		this.login = login;
 	}
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
 	public UserRole getRole() {
-		return Role;
+		return role;
 	}
 	public void setRole(UserRole role) {
-		Role = role;
+		this.role = role;
 	}
-    
-    
 }

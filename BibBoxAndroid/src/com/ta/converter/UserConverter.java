@@ -8,6 +8,12 @@ import org.ksoap2.serialization.SoapObject;
 import com.ta.pojo.User;
 import com.ta.pojo.UserRole;
 
+/**
+ * @author Jing SHU
+ * @date 05/03/2014
+ * @copyright TA Copyright
+ * @brief La classe de converteur qui convert un soap objet User à un POJO User
+ */
 public class UserConverter implements IConverter<User>{
 
 	@Override
@@ -15,7 +21,7 @@ public class UserConverter implements IConverter<User>{
 		if(soapObject == null) { return null; }
 		try{
 			User u = new User();
-			u.setID(Integer.parseInt(soapObject.getProperty("ID").toString()));
+			u.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));
 			u.setFirstName(soapObject.getProperty("FirstName").toString());
 			u.setLastName(soapObject.getProperty("LastName").toString());
 			u.setAddress(soapObject.getProperty("Address").toString());

@@ -1,8 +1,7 @@
 package com.ta.pojo;
 
+import java.util.Date;
 import java.util.List;
-
-import org.joda.time.DateTime;
 
 /**
  * @author Jing SHU
@@ -12,8 +11,8 @@ import org.joda.time.DateTime;
  */
 public class Reservation {
 	private int id;
-    private DateTime beginDate;
-    private DateTime endDate;
+    private Date beginDate;
+    private Date endDate;
     private int nbUser;
     private ReservationState state;
     private MonoAllocable monoAllocable;
@@ -26,16 +25,16 @@ public class Reservation {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public DateTime getBeginDate() {
+	public Date getBeginDate() {
 		return beginDate;
 	}
-	public void setBeginDate(DateTime beginDate) {
+	public void setBeginDate(Date beginDate) {
 		this.beginDate = beginDate;
 	}
-	public DateTime getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(DateTime endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 	public int getNbUser() {

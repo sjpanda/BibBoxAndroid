@@ -1,7 +1,11 @@
 package com.ta.converter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.ksoap2.serialization.SoapObject;
 
@@ -22,6 +26,8 @@ public class LocationConverter{
 			l.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));
 			l.setName(soapObject.getProperty("Name").toString());
 			l.setAddress(soapObject.getProperty("Address").toString());
+			System.out.println("lolo : " + soapObject.getProperty("BeginReservTime").toString());
+			l.setBeginReservTime(parseLastModified(soapObject.getProperty("BeginReservTime").toString()));
 			//l.setBeginReservTime(UserRoleConverter.instance().convertToObject(soapObject.getProperty("BeginReservTime").toString()));
 			//l.setEndReservTime(UserRoleConverter.instance().convertToObject(soapObject.getProperty("EndReservTime").toString()));
 			return l;
@@ -45,5 +51,18 @@ public class LocationConverter{
 	public static LocationConverter instance() {
 		if(locationConverter == null) {locationConverter = new LocationConverter(); }
 		return locationConverter;
+	}
+	
+	private Date parseLastModified(String lastModified) {
+		SimpleDateFormat httpHeaderDateFormatter = new SimpleDateFormat("hh:mm:ss", Locale.FRANCE);
+	    Date date = null;
+	    if (lastModified != null && lastModified.length() > 0) {
+	        try {
+	            date = httpHeaderDateFormatter.parse(lastModified);
+	        } catch (ParseException e) {
+	            // otherwise we just leave it empty
+	        }
+	    }
+	    return date;
 	}
 }

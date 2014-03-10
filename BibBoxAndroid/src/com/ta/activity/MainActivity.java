@@ -68,7 +68,7 @@ public class MainActivity extends Activity {
 		
 		List<Location> locations = alloc.GetAllLocations();
 		for(Location location : locations){
-			sb.append("location : " + location.getName() + "\n"); 
+			sb.append("location : " + location.getName() + ", begin reserv time : " + location.getBeginReservTime() + "\n"); 
 		}
 		
 //		boolean inserted = alloc.InsertAllocable("", "Box Android", "", 1, 1);

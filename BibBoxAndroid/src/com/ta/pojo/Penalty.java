@@ -1,8 +1,7 @@
 package com.ta.pojo;
 
+import java.util.Date;
 import java.util.List;
-
-import org.joda.time.DateTime;
 
 /**
  * @author Jing SHU
@@ -12,7 +11,7 @@ import org.joda.time.DateTime;
  */
 public class Penalty {
 	private int id;
-    private DateTime creationDate;
+    private Date creationDate;
     private User user;
     private List<Allocable> allocables;
     
@@ -22,10 +21,10 @@ public class Penalty {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public DateTime getCreationDate() {
+	public Date getCreationDate() {
 		return creationDate;
 	}
-	public void setCreationDate(DateTime creationDate) {
+	public void setCreationDate(Date creationDate) {
 		this.creationDate = creationDate;
 	}
 	public User getUser() {

@@ -4,6 +4,12 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+/**
+ * @author Jing SHU
+ * @date 07/03/2014
+ * @copyright TA Copyright
+ * @brief Le POJO qui représente une pénalité
+ */
 public class Penalty {
 	private int id;
     private DateTime creationDate;

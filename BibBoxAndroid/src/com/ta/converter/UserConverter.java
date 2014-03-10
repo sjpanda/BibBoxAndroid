@@ -17,7 +17,7 @@ public class UserConverter {
 
 	public User convertToObject(SoapObject soapObject) {
 		if(soapObject == null) { return null; }
-		try{
+		try{		
 			User u = new User();
 			u.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));
 			u.setFirstName(soapObject.getProperty("FirstName").toString());

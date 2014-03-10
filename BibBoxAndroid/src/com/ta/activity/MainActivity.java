@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
+import com.ta.pojo.Allocable;
 import com.ta.pojo.Location;
 import com.ta.pojo.User;
 import com.ta.service.ServiceAllocable;
@@ -68,6 +69,19 @@ public class MainActivity extends Activity {
 		List<Location> locations = alloc.GetAllLocations();
 		for(Location location : locations){
 			sb.append("location : " + location.getName() + "\n"); 
+		}
+		
+//		boolean inserted = alloc.InsertAllocable("", "Box Android", "", 1, 1);
+//		sb.append("Box Android inserted ? " + inserted + "\n"); 
+		
+//		List<Type> types = alloc.GetAllTypesAllocable();
+//		for(Type type : types){
+//			sb.append("type : " + type.getClass().getName() + "\n"); 
+//		}
+		
+		List<Allocable> allocables = alloc.GetAllAllocable();
+		for(Allocable a : allocables){
+			sb.append("allocable : " + a.getName() + "\n"); 
 		}
 		
 		tv.setText("result of wcf : \n" + sb.toString());

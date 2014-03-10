@@ -5,8 +5,12 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
+import com.ta.converter.AllocableConverter;
 import com.ta.converter.LocationConverter;
+import com.ta.converter.TypeConverter;
+import com.ta.pojo.Allocable;
 import com.ta.pojo.Location;
+import com.ta.pojo.Type;
 
 
 /**
@@ -55,16 +59,16 @@ public class ServiceAllocable {
 		}
 		return equips;
 	}
-	
-	    public List<Location> GetAllLocations()
-	    {
-	    	String methodName = "GetAllLocations";
-			SoapObject request = new SoapObject(NAMESPACE, methodName);
-			SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
-			List<Location> locations = LocationConverter.instance().convertToListObject(result);
-			return locations;
-	    }
-	
+
+	public List<Location> GetAllLocations()
+	{
+		String methodName = "GetAllLocations";
+		SoapObject request = new SoapObject(NAMESPACE, methodName);
+		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
+		List<Location> locations = LocationConverter.instance().convertToListObject(result);
+		return locations;
+	}
+
 	//    public TimeSpan GetBeginReservTime()
 	//    {
 	//        return ManagementFactory.CreateAllocableManagement().GetBeginReservTime();
@@ -74,44 +78,47 @@ public class ServiceAllocable {
 	//    {
 	//        return ManagementFactory.CreateAllocableManagement().GetEndReservTime();
 	//    }
+
+	//	    public Dictionary<String, Integer> GetMultiAllocablesByMonoAllocable(int idMonoAllocable, DateTime date, TimeSpan beginTime, TimeSpan endTime)
+	//	    {
+	//	        // S'il y a un prob de serialisation de Dictionary, alors changer le type de retour à List<KeyValuePair<string, int>> puis faire .ToList() sur Dictionary
+	//	        return ManagementFactory.CreateAllocableManagement().GetMultiAllocablesByMonoAllocable(idMonoAllocable, date, beginTime, endTime);
+	//	    }
+
+
+	    public List<Type> GetAllTypesAllocable()
+	    {
+	    	String methodName = "GetAllTypesAllocable";
+			SoapObject request = new SoapObject(NAMESPACE, methodName);
+			SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
+			List<Type> types = TypeConverter.instance().convertToListObject(result);
+			return types;
+	    }
 	
-//	    public Dictionary<String, Integer> GetMultiAllocablesByMonoAllocable(int idMonoAllocable, DateTime date, TimeSpan beginTime, TimeSpan endTime)
+	
+//	    public boolean InsertAllocable(String barCode, String name, String description, int idType, int idLocation)
 //	    {
-//	        // S'il y a un prob de serialisation de Dictionary, alors changer le type de retour à List<KeyValuePair<string, int>> puis faire .ToList() sur Dictionary
-//	        return ManagementFactory.CreateAllocableManagement().GetMultiAllocablesByMonoAllocable(idMonoAllocable, date, beginTime, endTime);
+//	    	String methodName = "InsertAllocable";
+//			SoapObject request = new SoapObject(NAMESPACE, methodName);
+//			request.addProperty("barCode", barCode);
+//			request.addProperty("name", name);
+//			request.addProperty("description", description);
+//			request.addProperty("idType", idType);
+//			request.addProperty("idLocation", idLocation);
+//			SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
+//			try{
+//				return Boolean.parseBoolean(result.toString());
+//			} catch (Exception e){
+//				return false;
+//			}
 //	    }
-	
-	
-	//    public List<DBType> GetAllTypesAllocable()
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().GetAllTypesAllocable();
-	//    }
-	//
-	//
-	//    public bool InsertAllocable(string barCode, string name, string description, int idType, int idLocation)
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().InsertAllocable(barCode, name, description, idType, idLocation);
-	//    }
-	//
-	//
-	//    public List<DBAllocable> SearchAllocable(string type, string name, string barCode, int idLocation)
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().SearchAllocable(type, name, barCode, idLocation);
-	//    }
-	//
-	//
-	//    public DBAllocable UpdateAllocable(int idAllocable, string barCode, string name, string description, int idType, int idLocation)
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().UpdateAllocable(idAllocable, barCode, name, description, idType, idLocation);
-	//    }
-	//
-	//    public bool DeleteAllocable(int idAllocable)
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().DeleteAllocable(idAllocable);
-	//    }
-	//
-	//    public List<DBAllocable> GetAllAllocable()
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().GetAllAllocables();
-	//    }
+	    
+	    public List<Allocable> GetAllAllocable()
+        {
+	    	String methodName = "GetAllAllocable";
+			SoapObject request = new SoapObject(NAMESPACE, methodName);
+			SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
+			List<Allocable> allocables = AllocableConverter.instance().convertToListObject(result);
+			return allocables;
+        }
 }

@@ -36,6 +36,4 @@ public class PCType extends Type {
 	public void setRam(String ram) {
 		this.ram = ram;
 	}
-	
-
 }

@@ -45,7 +45,6 @@ public class ServiceUtil {
 			System.out.println("tata10");
 			
 			System.out.println("tata10 bis : " + envelope.getResponse().toString());
-			
 			return envelope.getResponse();
 		} catch (Exception e) {
 			System.out.println("tata11");

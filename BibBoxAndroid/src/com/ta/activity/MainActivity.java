@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.bibboxandroid.R;
 import com.ta.pojo.Allocable;
 import com.ta.pojo.Location;
+import com.ta.pojo.MonoAllocable;
 import com.ta.pojo.User;
 import com.ta.service.ServiceAllocable;
 import com.ta.service.ServiceAuthentification;
@@ -79,9 +80,21 @@ public class MainActivity extends Activity {
 //			sb.append("type : " + type.getClass().getName() + "\n"); 
 //		}
 		
-		List<Allocable> allocables = alloc.GetAllAllocable();
-		for(Allocable a : allocables){
-			sb.append("allocable : " + a.getName() + "\n"); 
+//		List<Allocable> allocables = alloc.GetAllAllocable();
+//		for(Allocable a : allocables){
+//			sb.append("allocable : " + a.getName() + "\n"); 
+//		}
+		
+		sb.append("For students : \n");
+		List<MonoAllocable> monoAllocables = alloc.SearchMonoAllocables(1, "Indifferent", "Indifferent", "2014-05-12 00:00:00", "10:00:00", "13:00:00");
+		for(MonoAllocable m : monoAllocables){
+			sb.append("mono allocable : " + m.getName() + "\n");
+		}
+		
+		sb.append("For teachers : \n");
+		List<MonoAllocable> monoAllocablesT = alloc.SearchMonoAllocablesForTeacher(1, "Indifferent", "Indifferent", "2014-05-12 00:00:00", "10:00:00", "13:00:00");
+		for(MonoAllocable m : monoAllocablesT){
+			sb.append("mono allocable : " + m.getName() + "\n");
 		}
 		
 		tv.setText("result of wcf : \n" + sb.toString());

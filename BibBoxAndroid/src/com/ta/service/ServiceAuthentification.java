@@ -12,13 +12,12 @@ import com.ta.pojo.User;
  * @brief La classe permettant d'appeler les méthodes du web service concernant l'authentification
  */
 public class ServiceAuthentification {
-	private static String NAMESPACE = "http://tempuri.org/";
 	private static final String serviceName = "ServiceAuthentification";
 	
 	public User login(String login, String password)
     {
 		String methodName = "Login";
-		SoapObject request = new SoapObject(NAMESPACE, methodName);
+		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
 		request.addProperty("login", login);
 		request.addProperty("password", password);
         SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);

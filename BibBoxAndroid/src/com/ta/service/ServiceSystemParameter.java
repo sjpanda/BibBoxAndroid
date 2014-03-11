@@ -12,13 +12,12 @@ import com.ta.converter.SystemParameterConverter;
  * @brief La classe permettant d'appeler les méthodes du web service concernant les paramètres du système
  */
 public class ServiceSystemParameter {
-	private static String NAMESPACE = "http://tempuri.org/";
 	private static final String serviceName = "ServiceSystemParameter";
 	
 	public int GetReservationMinInterval()
     {
 		String methodName = "GetReservationMinInterval";
-		SoapObject request = new SoapObject(NAMESPACE, methodName);
+		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
 		SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
 		String s = SystemParameterConverter.instance().convertToObject(result);
 		try{
@@ -32,7 +31,7 @@ public class ServiceSystemParameter {
     public int GetMaxReservDays()
     {
     	String methodName = "GetMaxReservDays";
-		SoapObject request = new SoapObject(NAMESPACE, methodName);
+		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
 		SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
 		String s = SystemParameterConverter.instance().convertToObject(result);
 		try{

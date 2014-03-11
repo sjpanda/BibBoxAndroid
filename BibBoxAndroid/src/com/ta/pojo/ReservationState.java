@@ -1,5 +1,6 @@
 package com.ta.pojo;
 
+
 /**
  * @author Jing SHU
  * @date 07/03/2014

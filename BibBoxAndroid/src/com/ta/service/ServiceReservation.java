@@ -1,5 +1,18 @@
 package com.ta.service;
 
+import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.List;
+
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+
+import com.ta.converter.CollectionConverter;
+import com.ta.converter.DateNTimeConverter;
+import com.ta.converter.ReservationConverter;
+import com.ta.pojo.Reservation;
+import com.ta.pojo.ReservationState;
+
 /**
  * @author Jing SHU
  * @date 07/03/2014
@@ -7,18 +20,48 @@ package com.ta.service;
  * @brief La classe permettant d'appeler les méthodes du web service concernant les réservations
  */
 public class ServiceReservation {
-//    public List<DBReservation> GetAllReservationsByUser(string login)
-//    {
-//        return ManagementFactory.CreateReservationManagement().GetAllReservationsByUser(login);
-//    }
-//
-//    public bool ValidateReservation(string leaderLogin, int idMonoAllocable, int nbPerson, DateTime date, TimeSpan beginTime, TimeSpan endTime, Dictionary<string, int> multiAllocables)
-//    {
-//        return ManagementFactory.CreateReservationManagement().ValidateReservation(leaderLogin, idMonoAllocable, nbPerson, date, beginTime, endTime, multiAllocables);
-//    }
+	private static final String serviceName = "ServiceReservation";
+	
+    public List<Reservation> GetAllReservationsByUser(String login)
+    {
+    	String methodName = "GetAllReservationsByUser";
+		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
+		request.addProperty("login", login);
+		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
+		List<Reservation> reservations = ReservationConverter.instance().convertToListObject(result);
+		if(reservations == null){
+			reservations = new ArrayList<Reservation>();
+		}
+		return reservations;
+    }
 
-//    public BibBoxPortableClassLibrary.Lib.DBReservation TerminateReservation(int idReservation, EDBReservationState state)
-//    {
-//        return ManagementFactory.CreateReservationManagement().TerminateReservation(idReservation,state);
-//    }
+    public boolean ValidateReservation(String leaderLogin, int idMonoAllocable, int nbPerson, String date, String beginTime, String endTime, Dictionary<String, Integer> multiAllocables)
+    {
+    	String methodName = "ValidateReservation";
+		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
+		request.addProperty("leaderLogin", leaderLogin);
+		request.addProperty("idMonoAllocable", idMonoAllocable);
+		request.addProperty("nbPerson", nbPerson);
+		request.addProperty("date", DateNTimeConverter.dateToISO8601(date));
+		request.addProperty("beginTime", DateNTimeConverter.timeToISO8601(beginTime));
+		request.addProperty("endTime", DateNTimeConverter.timeToISO8601(endTime));
+		request.addProperty("multiAllocables", multiAllocables);
+		
+		SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
+		try{
+			return Boolean.parseBoolean(result.toString());
+		} catch (Exception e){
+			return false;
+		}
+    }
+
+    public Reservation TerminateReservation(int idReservation, ReservationState state)
+    {
+    	String methodName = "TerminateReservation";
+		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
+		request.addProperty("idReservation", idReservation);
+		request.addProperty("state", state);
+		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
+		return ReservationConverter.instance().convertToObject(result);
+    }
 }

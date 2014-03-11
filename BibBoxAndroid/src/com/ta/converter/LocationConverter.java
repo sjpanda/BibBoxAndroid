@@ -26,7 +26,6 @@ public class LocationConverter{
 			l.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));
 			l.setName(soapObject.getProperty("Name").toString());
 			l.setAddress(soapObject.getProperty("Address").toString());
-			System.out.println("lolo : " + soapObject.getProperty("BeginReservTime").toString());
 			l.setBeginReservTime(parseLastModified(soapObject.getProperty("BeginReservTime").toString()));
 			//l.setBeginReservTime(UserRoleConverter.instance().convertToObject(soapObject.getProperty("BeginReservTime").toString()));
 			//l.setEndReservTime(UserRoleConverter.instance().convertToObject(soapObject.getProperty("EndReservTime").toString()));

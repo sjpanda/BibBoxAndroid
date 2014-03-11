@@ -1,9 +1,12 @@
 package com.ta.service;
 
 import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.MarshalHashtable;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+
+import com.ta.pojo.ReservationState;
 
 /**
  * @author Jing SHU
@@ -14,6 +17,7 @@ import org.ksoap2.transport.HttpTransportSE;
 public class ServiceUtil {
 	private static String URL = "";
 	private static String SOAP_ACTION = "";
+	public static String NAMESPACE = "http://tempuri.org/";
 	
 	private static void init(String serviceName, String methodName){
 		URL = "http://132.227.69.163:81/" + serviceName + ".svc";
@@ -35,9 +39,8 @@ public class ServiceUtil {
 			envelope.dotNet = true;
 			System.out.println("tata6");
 			envelope.setOutputSoapObject(request);
-			System.out.println("tata7");
-
-			androidHttpTransport = new HttpTransportSE(URL);
+			System.out.println("tata7");			
+			androidHttpTransport = new HttpTransportSE(URL);			
 			System.out.println("tata8");
 			androidHttpTransport.debug = true;
 			System.out.println("tata9");

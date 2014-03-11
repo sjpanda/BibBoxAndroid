@@ -1,6 +1,8 @@
 package com.ta.activity;
 
 import java.util.Date;
+import java.util.Dictionary;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,9 +18,12 @@ import com.example.bibboxandroid.R;
 import com.ta.converter.DateNTimeConverter;
 import com.ta.pojo.Location;
 import com.ta.pojo.MonoAllocable;
+import com.ta.pojo.Reservation;
+import com.ta.pojo.ReservationState;
 import com.ta.pojo.User;
 import com.ta.service.ServiceAllocable;
 import com.ta.service.ServiceAuthentification;
+import com.ta.service.ServiceReservation;
 import com.ta.service.ServiceSystemParameter;
 
 /**
@@ -45,6 +50,13 @@ public class MainActivity extends Activity {
 		sb = new StringBuilder();
 		Toast.makeText(this.getApplicationContext(),"Hello ! XDDDDDDDDDDDD", Toast.LENGTH_LONG).show();
 		
+		testWCFCall();
+		
+		tv.setText("result of wcf : \n" + sb.toString());
+		setContentView(tv);
+	}
+
+	public void testWCFCall(){
 		ServiceAuthentification auth = new ServiceAuthentification();
 		User u = auth.login("Basic1", "password1");
 		if(u != null){
@@ -111,10 +123,26 @@ public class MainActivity extends Activity {
 		Date endReservTime = alloc.GetEndReservTime();
 		sb.append("endReservTime : " + DateNTimeConverter.dateToTime(endReservTime) + "\n");
 		
-		tv.setText("result of wcf : \n" + sb.toString());
-		setContentView(tv);
+		ServiceReservation reserv = new ServiceReservation();
+		List<Reservation> reservations = reserv.GetAllReservationsByUser("Basic1");
+		for(Reservation r : reservations){
+			sb.append("reservation of " + r.getLeader().getLogin() + " from " + r.getBeginDate().toString() + " to " + r.getEndDate().toString() + "\n");
+		}
+		
+		Dictionary<String, Integer> multiAllocablesSelected = new Hashtable<String, Integer>();
+		multiAllocablesSelected.put("PC portable", 1);
+		multiAllocablesSelected.put("Casque audio", 0);
+		boolean validated = reserv.ValidateReservation("Basic1", 5, 1, "2014-04-02 00:00:00", "09:00:00", "11:30:00", multiAllocablesSelected);
+		sb.append("new reservation of Basic1 from 2014-04-02 9:00:00 to 2014-04-02 11:30:00 validated ? " + validated + "\n");
+		
+//		Reservation canceled = reserv.TerminateReservation(6, ReservationState.Canceled);
+//		if(canceled != null){
+//			sb.append("reservation of Basic1 from " + canceled.getBeginDate().toString() + " to " + canceled.getEndDate().toString() + " canceled ? true\n");
+//		} else {
+//			sb.append("failed to cancel the reservation number 6\n");
+//		}
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

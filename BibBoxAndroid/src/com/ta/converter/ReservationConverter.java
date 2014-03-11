@@ -22,8 +22,8 @@ public class ReservationConverter {
 		try{	
 			Reservation r = new Reservation();
 			r.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));
-			r.setBeginDate(DateNTimeConverter.stringToDate(soapObject.getProperty("BeginDate").toString()));
-			r.setEndDate(DateNTimeConverter.stringToDate(soapObject.getProperty("EndDate").toString()));
+			r.setBeginDate(DateNTimeConverter.ISO8601toDate(soapObject.getProperty("BeginDate").toString()));
+			r.setEndDate(DateNTimeConverter.ISO8601toDate(soapObject.getProperty("EndDate").toString()));
 			r.setLeader(UserConverter.instance().convertToObject((SoapObject)soapObject.getProperty("Leader")));
 			r.setMonoAllocable((MonoAllocable)AllocableConverter.instance().convertToObject((SoapObject)soapObject.getProperty("MonoAllocable")));
 			r.setNbUser(Integer.parseInt(soapObject.getProperty("NbUser").toString()));

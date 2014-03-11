@@ -35,9 +35,9 @@ public class ServiceReservation {
 		return reservations;
     }
 
-    public boolean ValidateReservation(String leaderLogin, int idMonoAllocable, int nbPerson, String date, String beginTime, String endTime, Dictionary<String, Integer> multiAllocables)
+    public boolean ValidateReservationString(String leaderLogin, int idMonoAllocable, int nbPerson, String date, String beginTime, String endTime, String multiAllocables)
     {
-    	String methodName = "ValidateReservation";
+    	String methodName = "ValidateReservationString";
 		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
 		request.addProperty("leaderLogin", leaderLogin);
 		request.addProperty("idMonoAllocable", idMonoAllocable);
@@ -55,12 +55,12 @@ public class ServiceReservation {
 		}
     }
 
-    public Reservation TerminateReservation(int idReservation, ReservationState state)
+    public Reservation TerminateReservationString(int idReservation, ReservationState state)
     {
-    	String methodName = "TerminateReservation";
+    	String methodName = "TerminateReservationString";
 		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
 		request.addProperty("idReservation", idReservation);
-		request.addProperty("state", state);
+		request.addProperty("state", state.toString());
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		return ReservationConverter.instance().convertToObject(result);
     }

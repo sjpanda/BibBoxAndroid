@@ -106,11 +106,11 @@ public class MainActivity extends Activity {
 			sb.append("mono allocable : " + m.getName() + "\n");
 		}
 		
-		sb.append("For teachers : \n");
-		List<MonoAllocable> monoAllocablesT = alloc.SearchMonoAllocablesForTeacher(1, "Indifferent", "Indifferent", "2014-05-12 00:00:00", "10:00:00", "13:00:00");
-		for(MonoAllocable m : monoAllocablesT){
-			sb.append("mono allocable : " + m.getName() + "\n");
-		}
+//		sb.append("For teachers : \n");
+//		List<MonoAllocable> monoAllocablesT = alloc.SearchMonoAllocablesForTeacher(1, "Indifferent", "Indifferent", "2014-05-12 00:00:00", "10:00:00", "13:00:00");
+//		for(MonoAllocable m : monoAllocablesT){
+//			sb.append("mono allocable : " + m.getName() + "\n");
+//		}
 		
 		Map<String, Integer> multiAllocables = alloc.GetMultiAllocablesByMonoAllocable(1, "2014-05-12 00:00:00", "10:00:00", "13:00:00");
 		for(Entry<String, Integer> e : multiAllocables.entrySet()){
@@ -132,15 +132,15 @@ public class MainActivity extends Activity {
 		Dictionary<String, Integer> multiAllocablesSelected = new Hashtable<String, Integer>();
 		multiAllocablesSelected.put("PC portable", 1);
 		multiAllocablesSelected.put("Casque audio", 0);
-		boolean validated = reserv.ValidateReservation("Basic1", 5, 1, "2014-04-02 00:00:00", "09:00:00", "11:30:00", multiAllocablesSelected);
-		sb.append("new reservation of Basic1 from 2014-04-02 9:00:00 to 2014-04-02 11:30:00 validated ? " + validated + "\n");
+		boolean validated = reserv.ValidateReservationString("Basic1", 5, 1, "2014-04-03 00:00:00", "09:00:00", "11:30:00", "PC portable:1;Casque audio:0");
+		sb.append("new reservation of Basic1 from 2014-04-03 9:00:00 to 2014-04-03 11:30:00 validated ? " + validated + "\n");
 		
-//		Reservation canceled = reserv.TerminateReservation(6, ReservationState.Canceled);
-//		if(canceled != null){
-//			sb.append("reservation of Basic1 from " + canceled.getBeginDate().toString() + " to " + canceled.getEndDate().toString() + " canceled ? true\n");
-//		} else {
-//			sb.append("failed to cancel the reservation number 6\n");
-//		}
+		Reservation canceled = reserv.TerminateReservationString(9, ReservationState.Canceled);
+		if(canceled != null){
+			sb.append("reservation of Basic1 from " + canceled.getBeginDate().toString() + " to " + canceled.getEndDate().toString() + " canceled ? true\n");
+		} else {
+			sb.append("failed to cancel the reservation number 9\n");
+		}
 	}
 	
 	@Override

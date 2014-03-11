@@ -1,15 +1,18 @@
 package com.ta.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 
 import com.ta.converter.AllocableConverter;
+import com.ta.converter.DateNTimeConverter;
+import com.ta.converter.DictionaryConverter;
 import com.ta.converter.LocationConverter;
 import com.ta.converter.TypeConverter;
-import com.ta.datentime.DateNTimeUtil;
 import com.ta.pojo.Allocable;
 import com.ta.pojo.Location;
 import com.ta.pojo.MonoAllocable;
@@ -33,9 +36,9 @@ public class ServiceAllocable {
 		request.addProperty("nbPerson", nbPerson);
 		request.addProperty("equip", equip);
 		request.addProperty("place", place);
-		request.addProperty("date", DateNTimeUtil.dateToISO8601(date));
-		request.addProperty("beginTime", DateNTimeUtil.timeToISO8601(beginTime));
-		request.addProperty("endTime", DateNTimeUtil.timeToISO8601(endTime));
+		request.addProperty("date", DateNTimeConverter.dateToISO8601(date));
+		request.addProperty("beginTime", DateNTimeConverter.timeToISO8601(beginTime));
+		request.addProperty("endTime", DateNTimeConverter.timeToISO8601(endTime));
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		List<Allocable> allocables = AllocableConverter.instance().convertToListObject(result);
 		List<MonoAllocable> monoAllocables = new ArrayList<MonoAllocable>();
@@ -54,9 +57,9 @@ public class ServiceAllocable {
 		request.addProperty("nbPerson", nbPerson);
 		request.addProperty("equip", equip);
 		request.addProperty("place", place);
-		request.addProperty("date", DateNTimeUtil.dateToISO8601(date));
-		request.addProperty("beginTime", DateNTimeUtil.timeToISO8601(beginTime));
-		request.addProperty("endTime", DateNTimeUtil.timeToISO8601(endTime));
+		request.addProperty("date", DateNTimeConverter.dateToISO8601(date));
+		request.addProperty("beginTime", DateNTimeConverter.timeToISO8601(beginTime));
+		request.addProperty("endTime", DateNTimeConverter.timeToISO8601(endTime));
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		List<Allocable> allocables = AllocableConverter.instance().convertToListObject(result);
 		List<MonoAllocable> monoAllocables = new ArrayList<MonoAllocable>();
@@ -74,11 +77,13 @@ public class ServiceAllocable {
 		SoapObject request = new SoapObject(NAMESPACE, methodName);
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		List<Integer> nbSeat = new ArrayList<Integer>();
-		for(int i=0; i<result.getPropertyCount(); i++){
-			String nb = result.getProperty(i).toString();
-			try{
-				nbSeat.add(Integer.parseInt(nb));
-			} catch (Exception e) {}
+		if(result != null){
+			for(int i=0; i<result.getPropertyCount(); i++){
+				String nb = result.getProperty(i).toString();
+				try{
+					nbSeat.add(Integer.parseInt(nb));
+				} catch (Exception e) {}
+			}
 		}
 		return nbSeat;
 	}
@@ -89,8 +94,10 @@ public class ServiceAllocable {
 		SoapObject request = new SoapObject(NAMESPACE, methodName);
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		List<String> equips = new ArrayList<String>();
-		for(int i=0; i<result.getPropertyCount(); i++){
-			equips.add(result.getProperty(i).toString());
+		if(result != null){
+			for(int i=0; i<result.getPropertyCount(); i++){
+				equips.add(result.getProperty(i).toString());
+			}
 		}
 		return equips;
 	}
@@ -101,24 +108,40 @@ public class ServiceAllocable {
 		SoapObject request = new SoapObject(NAMESPACE, methodName);
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		List<Location> locations = LocationConverter.instance().convertToListObject(result);
+		if(locations == null){
+			locations = new ArrayList<Location>();
+		}
 		return locations;
 	}
 
-	//    public TimeSpan GetBeginReservTime()
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().GetBeginReservTime();
-	//    }
-	//
-	//    public TimeSpan GetEndReservTime()
-	//    {
-	//        return ManagementFactory.CreateAllocableManagement().GetEndReservTime();
-	//    }
+	public Date GetBeginReservTime()
+	{
+		String methodName = "GetBeginReservTime";
+		SoapObject request = new SoapObject(NAMESPACE, methodName);
+		SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
+		return DateNTimeConverter.ISO8601toTime(result.toString());
+	}
 
-	//	    public Dictionary<String, Integer> GetMultiAllocablesByMonoAllocable(int idMonoAllocable, DateTime date, TimeSpan beginTime, TimeSpan endTime)
-	//	    {
-	//	        // S'il y a un prob de serialisation de Dictionary, alors changer le type de retour à List<KeyValuePair<string, int>> puis faire .ToList() sur Dictionary
-	//	        return ManagementFactory.CreateAllocableManagement().GetMultiAllocablesByMonoAllocable(idMonoAllocable, date, beginTime, endTime);
-	//	    }
+	public Date GetEndReservTime()
+	{
+		String methodName = "GetEndReservTime";
+		SoapObject request = new SoapObject(NAMESPACE, methodName);
+		SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
+		return DateNTimeConverter.ISO8601toTime(result.toString());
+	}
+
+	public Map<String, Integer> GetMultiAllocablesByMonoAllocable(int idMonoAllocable, String date, String beginTime, String endTime)
+	{
+		String methodName = "GetMultiAllocablesByMonoAllocable";
+		SoapObject request = new SoapObject(NAMESPACE, methodName);
+		request.addProperty("idMonoAllocable", idMonoAllocable);
+		request.addProperty("date", DateNTimeConverter.dateToISO8601(date));
+		request.addProperty("beginTime", DateNTimeConverter.timeToISO8601(beginTime));
+		request.addProperty("endTime", DateNTimeConverter.timeToISO8601(endTime));
+		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
+		Map<String, Integer> multiAllocables = DictionaryConverter.instance().convertToMapStringIntObject(result);
+		return multiAllocables;
+	}
 
 
 	public List<Type> GetAllTypesAllocable()
@@ -127,33 +150,39 @@ public class ServiceAllocable {
 		SoapObject request = new SoapObject(NAMESPACE, methodName);
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		List<Type> types = TypeConverter.instance().convertToListObject(result);
+		if(types == null){
+			types = new ArrayList<Type>();
+		}
 		return types;
 	}
 
 
-	//	    public boolean InsertAllocable(String barCode, String name, String description, int idType, int idLocation)
-	//	    {
-	//	    	String methodName = "InsertAllocable";
-	//			SoapObject request = new SoapObject(NAMESPACE, methodName);
-	//			request.addProperty("barCode", barCode);
-	//			request.addProperty("name", name);
-	//			request.addProperty("description", description);
-	//			request.addProperty("idType", idType);
-	//			request.addProperty("idLocation", idLocation);
-	//			SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
-	//			try{
-	//				return Boolean.parseBoolean(result.toString());
-	//			} catch (Exception e){
-	//				return false;
-	//			}
-	//	    }
-
-	public List<Allocable> GetAllAllocable()
-	{
-		String methodName = "GetAllAllocable";
-		SoapObject request = new SoapObject(NAMESPACE, methodName);
-		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
-		List<Allocable> allocables = AllocableConverter.instance().convertToListObject(result);
-		return allocables;
-	}
+	//	public boolean InsertAllocable(String barCode, String name, String description, int idType, int idLocation)
+	//	{
+	//		String methodName = "InsertAllocable";
+	//		SoapObject request = new SoapObject(NAMESPACE, methodName);
+	//		request.addProperty("barCode", barCode);
+	//		request.addProperty("name", name);
+	//		request.addProperty("description", description);
+	//		request.addProperty("idType", idType);
+	//		request.addProperty("idLocation", idLocation);
+	//		SoapPrimitive result = (SoapPrimitive)ServiceUtil.callService(serviceName, methodName, request);
+	//		try{
+	//			return Boolean.parseBoolean(result.toString());
+	//		} catch (Exception e){
+	//			return false;
+	//		}
+	//	}
+	//
+	//	public List<Allocable> GetAllAllocable()
+	//	{
+	//		String methodName = "GetAllAllocable";
+	//		SoapObject request = new SoapObject(NAMESPACE, methodName);
+	//		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
+	//		List<Allocable> allocables = AllocableConverter.instance().convertToListObject(result);
+	//		if(allocables == null){
+	//			allocables = new ArrayList<Allocable>();
+	//		}
+	//		return allocables;
+	//	}
 }

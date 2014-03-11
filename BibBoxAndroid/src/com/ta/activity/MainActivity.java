@@ -1,6 +1,9 @@
 package com.ta.activity;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
-import com.ta.pojo.Allocable;
+import com.ta.converter.DateNTimeConverter;
 import com.ta.pojo.Location;
 import com.ta.pojo.MonoAllocable;
 import com.ta.pojo.User;
@@ -74,12 +77,12 @@ public class MainActivity extends Activity {
 		
 //		boolean inserted = alloc.InsertAllocable("", "Box Android", "", 1, 1);
 //		sb.append("Box Android inserted ? " + inserted + "\n"); 
-		
+//		
 //		List<Type> types = alloc.GetAllTypesAllocable();
 //		for(Type type : types){
 //			sb.append("type : " + type.getClass().getName() + "\n"); 
 //		}
-		
+//		
 //		List<Allocable> allocables = alloc.GetAllAllocable();
 //		for(Allocable a : allocables){
 //			sb.append("allocable : " + a.getName() + "\n"); 
@@ -96,6 +99,17 @@ public class MainActivity extends Activity {
 		for(MonoAllocable m : monoAllocablesT){
 			sb.append("mono allocable : " + m.getName() + "\n");
 		}
+		
+		Map<String, Integer> multiAllocables = alloc.GetMultiAllocablesByMonoAllocable(1, "2014-05-12 00:00:00", "10:00:00", "13:00:00");
+		for(Entry<String, Integer> e : multiAllocables.entrySet()){
+			sb.append("nb de " + e.getKey() + " : " + e.getValue() + "\n");
+		}
+		
+		Date beginReservTime = alloc.GetBeginReservTime();
+		sb.append("beginReservTime : " + DateNTimeConverter.dateToTime(beginReservTime) + "\n");
+		
+		Date endReservTime = alloc.GetEndReservTime();
+		sb.append("endReservTime : " + DateNTimeConverter.dateToTime(endReservTime) + "\n");
 		
 		tv.setText("result of wcf : \n" + sb.toString());
 		setContentView(tv);

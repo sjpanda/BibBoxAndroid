@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 
-import com.ta.datentime.DateNTimeUtil;
 import com.ta.pojo.Allocable;
 import com.ta.pojo.MonoAllocable;
 import com.ta.pojo.MultiAllocable;
@@ -23,8 +22,8 @@ public class ReservationConverter {
 		try{	
 			Reservation r = new Reservation();
 			r.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));
-			r.setBeginDate(DateNTimeUtil.stringToDate(soapObject.getProperty("BeginDate").toString()));
-			r.setEndDate(DateNTimeUtil.stringToDate(soapObject.getProperty("EndDate").toString()));
+			r.setBeginDate(DateNTimeConverter.stringToDate(soapObject.getProperty("BeginDate").toString()));
+			r.setEndDate(DateNTimeConverter.stringToDate(soapObject.getProperty("EndDate").toString()));
 			r.setLeader(UserConverter.instance().convertToObject((SoapObject)soapObject.getProperty("Leader")));
 			r.setMonoAllocable((MonoAllocable)AllocableConverter.instance().convertToObject((SoapObject)soapObject.getProperty("MonoAllocable")));
 			r.setNbUser(Integer.parseInt(soapObject.getProperty("NbUser").toString()));

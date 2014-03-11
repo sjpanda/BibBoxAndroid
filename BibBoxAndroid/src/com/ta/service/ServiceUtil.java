@@ -48,7 +48,7 @@ public class ServiceUtil {
 			return envelope.getResponse();
 		} catch (Exception e) {
 			System.out.println("tata11");
-			System.out.println("Error:\n" + e.getClass().getName() + "\n" + e.getMessage() + "\n\nRequest : \n" + androidHttpTransport.requestDump + "\nResponse : \n" + androidHttpTransport.responseDump + "\n");
+			System.out.println("Error : " + e.getClass().getName() + "; " + e.getMessage() + "; Request : " + androidHttpTransport.requestDump + "; Response : " + androidHttpTransport.responseDump + "\n");
 			System.out.println("tata12");
 			return null;
 		}

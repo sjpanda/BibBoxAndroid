@@ -14,7 +14,6 @@ import com.ta.pojo.User;
  * @brief La classe de converteur qui convert un soap objet User à un POJO User
  */
 public class UserConverter {
-
 	public User convertToObject(SoapObject soapObject) {
 		if(soapObject == null) { return null; }
 		try{		

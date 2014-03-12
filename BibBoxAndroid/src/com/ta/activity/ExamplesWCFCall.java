@@ -18,6 +18,12 @@ import com.ta.service.ServiceAuthentification;
 import com.ta.service.ServiceReservation;
 import com.ta.service.ServiceSystemParameter;
 
+/**
+ * @author Jing SHU
+ * @date 12/03/2014
+ * @copyright TA Copyright
+ * @brief La class contenant des exemples d'appel des méthods WCF
+ */
 public class ExamplesWCFCall {
 	public static String testWCFCall(){
 		StringBuilder sb = new StringBuilder();

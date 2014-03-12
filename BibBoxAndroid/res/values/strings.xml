@@ -30,5 +30,6 @@
     </string-array>
 
     <string name="title_activity_mono_allocable">MonoAllocableActivity</string>
+    <string name="title_activity_base">BaseActivity</string>
 
 </resources>

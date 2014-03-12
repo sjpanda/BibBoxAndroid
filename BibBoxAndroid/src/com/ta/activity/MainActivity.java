@@ -31,7 +31,7 @@ import com.ta.service.ServiceSystemParameter;
  * @copyright TA Copyright
  * @brief La page d'accueil de l'application
  */
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 	public final static String NB_PERSON = "com.ta.bibbox.NBPERSON";
 	public final static String EQUIP = "com.ta.bibbox.EQUIP";
 	public final static String LOCATION = "com.ta.bibbox.LOCATION";
@@ -54,22 +54,16 @@ public class MainActivity extends Activity {
 
 
 		// Get the message from the intent
-		Intent intent = getIntent();
-		String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
-		if((message != null) &&(! message.isEmpty())){
-			// Create the text view
-			TextView textView = new TextView(this);
-			textView.setTextSize(40);
-			textView.setText(message);
+//		Intent intent = getIntent();
+//		String message = intent.getStringExtra(LoginActivity.Login);
+//		if((message != null) &&(! message.isEmpty())){
+//			fillSpinners();
+//		} else {
+//					openLogin();
+//				}
 
-			// Set the text view as the activity layout
-			setContentView(textView);
-		} //else {
-		//			openLogin();
-		//		}
-
-		fillSpinners();
 		
+		fillSpinners();
 		
 		/* DO NOT DELETE  */
 		//		tv = new TextView(this);
@@ -78,25 +72,6 @@ public class MainActivity extends Activity {
 		//		tv.setText("result of wcf : \n" + ExamplesWCFCall.testWCFCall());
 		//		setContentView(tv);
 		/* END */
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle presses on the action bar items
-		switch (item.getItemId()) {
-		case R.id.action_login:
-			openLogin();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
 	}
 	
 	/** Called when the user clicks the Search button */
@@ -112,7 +87,7 @@ public class MainActivity extends Activity {
 	    int nbPerson = (Integer)spnNbPerson.getSelectedItem();
 	    String equip = spnEquips.getSelectedItem().toString();
 	    String location = spnLocation.getSelectedItem().toString();
-	    String date = dpDate.getYear() + "-" + dpDate.getMonth() + "-" + dpDate.getDayOfMonth();
+	    String date = dpDate.getYear() + "-" + dpDate.getMonth() + "-" + dpDate.getDayOfMonth() + " 00:00:00";
 	    String beginTime = spnBeginTime.getSelectedItem().toString();
 	    String endTime = spnEndTime.getSelectedItem().toString();
 	    
@@ -123,11 +98,6 @@ public class MainActivity extends Activity {
 		intent.putExtra(BEGIN_TIME, beginTime);
 		intent.putExtra(END_TIME, endTime);
 		
-		startActivity(intent);
-	}
-
-	public void openLogin(){
-		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 	}
 	
@@ -151,7 +121,6 @@ public class MainActivity extends Activity {
 		msString.manageSpinner(this, locations, R.id.spinner_location);
 		
 		int maxReservDays = sysParam.GetMaxReservDays();
-        //ViewBag.MaxReservDays = (0 > maxReservDays) ? TimeSpan.MinValue : new TimeSpan(maxReservDays, 0, 0, 0);
 		initDate(maxReservDays);
 		
 		int quantum = sysParam.GetReservationMinInterval();
@@ -191,7 +160,6 @@ public class MainActivity extends Activity {
 		dpDate.setCalendarViewShown(false);
 		long now = (new Date()).getTime();
 		dpDate.setMinDate(now - 1000);
-		System.out.println("maxReservDays : " + maxReservDays);
 		if(maxReservDays > 0){
 			dpDate.setMaxDate((new Date(now + maxReservDays * 24 * 60 * ONE_MINUTE_MILLIS)).getTime());
 		}

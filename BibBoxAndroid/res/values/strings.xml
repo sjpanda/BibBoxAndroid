@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">BibBoxAndroid</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">BibBox</string>
+    <string name="action_settings">Réglage</string>
+    <string name="action_login">Connexion</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login">Connexion</string>
+    <string name="edit_login">Identifiant</string>
+    <string name="edit_password">Mot de passe</string>
+    <string name="btn_login">Se connecter</string>
+    <string name="title_activity_ff">FFActivity</string>
 
 </resources>

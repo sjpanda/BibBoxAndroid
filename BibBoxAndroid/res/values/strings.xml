@@ -3,6 +3,9 @@
 
     <string name="app_name">BibBox</string>
     <string name="action_settings">Réglage</string>
+    <string name="action_new_reserv">Nouvelle Réservation</string>
+    <string name="action_my_reservs">Mes Réservations</string>
+    <string name="action_cancel_reserv">Annuler une réservation</string>
     <string name="action_login">Connexion</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login">Connexion</string>
@@ -31,5 +34,7 @@
 
     <string name="title_activity_mono_allocable">MonoAllocableActivity</string>
     <string name="title_activity_base">BaseActivity</string>
+    <string name="title_activity_my_reservs">MyReservsActivity</string>
+    <string name="title_activity_cancel_reserv">CancelReservActivity</string>
 
 </resources>

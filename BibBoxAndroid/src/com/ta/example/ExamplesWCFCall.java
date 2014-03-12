@@ -1,4 +1,4 @@
-package com.ta.activity;
+package com.ta.example;
 
 import java.util.Date;
 import java.util.Dictionary;

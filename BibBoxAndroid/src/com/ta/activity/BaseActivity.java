@@ -27,15 +27,24 @@ public class BaseActivity extends Activity {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
 		case R.id.action_login:
-			openLogin();
+			openView(LoginActivity.class);
+			return true;
+		case R.id.action_new_reserv:
+			openView(MainActivity.class);
+			return true;
+		case R.id.action_my_reservs:
+			openView(MyReservsActivity.class);
+			return true;
+		case R.id.action_cancel_reserv:
+			openView(CancelReservActivity.class);
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
-	public void openLogin(){
-		Intent intent = new Intent(this, LoginActivity.class);
+	
+	private void openView(Class<?> claz){
+		Intent intent = new Intent(this, claz);
 		startActivity(intent);
 	}
 }

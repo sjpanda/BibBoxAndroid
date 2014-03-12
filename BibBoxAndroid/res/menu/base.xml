@@ -1,9 +1,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_login"
+        android:id="@+id/action_new_reserv"
         android:orderInCategory="100"
         android:showAsAction="ifRoom" 
+        android:title="@string/action_new_reserv"/>
+    
+    <item
+        android:id="@+id/action_my_reservs"
+        android:orderInCategory="100"
+        android:showAsAction="never" 
+        android:title="@string/action_my_reservs"/>
+    
+    <item
+        android:id="@+id/action_cancel_reserv"
+        android:orderInCategory="100"
+        android:showAsAction="never" 
+        android:title="@string/action_cancel_reserv"/>
+    
+    <item
+        android:id="@+id/action_login"
+        android:orderInCategory="100"
+        android:showAsAction="never" 
         android:title="@string/action_login"/>
 
 </menu>

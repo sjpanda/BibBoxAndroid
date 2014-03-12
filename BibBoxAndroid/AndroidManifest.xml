@@ -29,8 +29,8 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="com.example.bibboxandroid.FFActivity"
-            android:label="@string/title_activity_ff" >
+            android:name="com.ta.activity.MonoAllocableActivity"
+            android:label="@string/title_activity_mono_allocable" >
         </activity>
     </application>
 

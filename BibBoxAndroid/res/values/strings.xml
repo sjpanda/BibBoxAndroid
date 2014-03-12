@@ -9,6 +9,26 @@
     <string name="edit_login">Identifiant</string>
     <string name="edit_password">Mot de passe</string>
     <string name="btn_login">Se connecter</string>
-    <string name="title_activity_ff">FFActivity</string>
+    <string name="search_monoAllocable">Recherchez un box</string>
+    <string name="search_mono_nbPerson">Nombre de personnes</string>
+    <string name="search_mono_equips">Équipements</string>
+    <string name="search_mono_location">Lieu</string>
+    <string name="search_mono_date">Date</string>
+    <string name="search_mono_beginTime">Horaire de début</string>
+    <string name="search_mono_endTime">Horaire de fin</string>
+    <string name="search">Rechercher</string>
+
+    <string-array name="country_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+
+    <string name="title_activity_mono_allocable">MonoAllocableActivity</string>
 
 </resources>

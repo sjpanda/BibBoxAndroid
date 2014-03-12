@@ -46,9 +46,9 @@ public class ExamplesWCFCall {
 			sb.append("equip : " + equip + "\n"); 
 		}
 		
-		List<Location> locations = alloc.GetAllLocations();
-		for(Location location : locations){
-			sb.append("location : " + location.getName() + ", begin reserv time : " + location.getBeginReservTime() + "\n"); 
+		List<String> locations = alloc.GetAllLocations();
+		for(String location : locations){
+			sb.append("location : " + location + "\n"); 
 		}
 		
 //		boolean inserted = alloc.InsertAllocable("", "Box Android", "", 1, 1);

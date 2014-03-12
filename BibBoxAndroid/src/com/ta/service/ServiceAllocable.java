@@ -101,16 +101,19 @@ public class ServiceAllocable {
 		return equips;
 	}
 
-	public List<Location> GetAllLocations()
+	public List<String> GetAllLocations()
 	{
 		String methodName = "GetAllLocations";
 		SoapObject request = new SoapObject(ServiceUtil.NAMESPACE, methodName);
 		SoapObject result = (SoapObject)ServiceUtil.callService(serviceName, methodName, request);
 		List<Location> locations = LocationConverter.instance().convertToListObject(result);
-		if(locations == null){
-			locations = new ArrayList<Location>();
+		List<String> names = new ArrayList<String>();
+		if(locations != null){
+			for(Location l : locations){
+				names.add(l.getName());
+			}
 		}
-		return locations;
+		return names;
 	}
 
 	public Date GetBeginReservTime()

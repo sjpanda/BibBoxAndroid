@@ -22,11 +22,4 @@ public class MyReservsActivity extends BaseActivity {
 		setContentView(R.layout.activity_my_reservs);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.my_reservs, menu);
-		return true;
-	}
-
 }

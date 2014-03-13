@@ -51,17 +51,6 @@ public class MainActivity extends BaseActivity {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
-
-
-		// Get the message from the intent
-//		Intent intent = getIntent();
-//		String message = intent.getStringExtra(LoginActivity.Login);
-//		if((message != null) &&(! message.isEmpty())){
-//			fillSpinners();
-//		} else {
-//					openLogin();
-//				}
-
 		
 		fillSpinners();
 		
@@ -159,7 +148,7 @@ public class MainActivity extends BaseActivity {
 		DatePicker dpDate = (DatePicker) findViewById(R.id.dp_date);
 		dpDate.setCalendarViewShown(false);
 		long now = (new Date()).getTime();
-		dpDate.setMinDate(now - 1000);
+		dpDate.setMinDate(now - 2000);
 		if(maxReservDays > 0){
 			dpDate.setMaxDate((new Date(now + maxReservDays * 24 * 60 * ONE_MINUTE_MILLIS)).getTime());
 		}

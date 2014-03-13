@@ -25,12 +25,25 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ta.activity.LoginActivity"
-            android:label="@string/title_activity_login" >
-        </activity>
-        <activity
             android:name="com.ta.activity.MonoAllocableActivity"
             android:label="@string/title_activity_mono_allocable" >
+        </activity>
+        <activity
+            android:name="com.ta.activity.BaseActivity"
+            android:label="@string/title_activity_base" >
+        </activity>
+        <activity
+            android:name="com.ta.activity.MyReservsActivity"
+            android:label="@string/title_activity_my_reservs" >
+        </activity>
+        <activity
+            android:name="com.ta.activity.CancelReservActivity"
+            android:label="@string/title_activity_cancel_reserv" >
+        </activity>
+        <activity
+            android:name="com.ta.activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
     </application>
 

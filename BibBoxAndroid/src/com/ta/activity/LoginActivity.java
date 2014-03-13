@@ -1,40 +1,29 @@
 package com.ta.activity;
 
-import com.example.bibboxandroid.R;
-import com.example.bibboxandroid.R.id;
-import com.example.bibboxandroid.R.layout;
-import com.example.bibboxandroid.R.menu;
-import com.example.bibboxandroid.R.string;
-import com.ta.pojo.User;
-import com.ta.service.ServiceAuthentification;
-
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.bibboxandroid.R;
+import com.ta.pojo.User;
+import com.ta.service.ServiceAuthentification;
+
 /**
- * Activity which displays a login screen to the user, offering registration as
- * well.
+ * @author Jing SHU
+ * @date 13/03/2014
+ * @copyright TA Copyright
+ * @brief La page de connexion
  */
 public class LoginActivity extends BaseActivity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] {
-			"foo@example.com:hello", "bar@example.com:world" };
-
 	/**
 	 * The default login to populate the login field with.
 	 */
@@ -44,6 +33,9 @@ public class LoginActivity extends BaseActivity {
 	 * Keep track of the login task to ensure we can cancel it if requested.
 	 */
 	private UserLoginTask mAuthTask = null;
+
+	// Name of shared preferences
+	public static final String PREFS_NAME = "com.ta.bibbox.PrefsFile";
 
 	// Values for login and password at the time of the login attempt.
 	private String mLogin;
@@ -69,17 +61,17 @@ public class LoginActivity extends BaseActivity {
 
 		mPasswordView = (EditText) findViewById(R.id.password);
 		mPasswordView
-				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-					@Override
-					public boolean onEditorAction(TextView textView, int id,
-							KeyEvent keyEvent) {
-						if (id == R.id.login || id == EditorInfo.IME_NULL) {
-							attemptLogin();
-							return true;
-						}
-						return false;
-					}
-				});
+		.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			@Override
+			public boolean onEditorAction(TextView textView, int id,
+					KeyEvent keyEvent) {
+				if (id == R.id.login || id == EditorInfo.IME_NULL) {
+					attemptLogin();
+					return true;
+				}
+				return false;
+			}
+		});
 
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
@@ -120,22 +112,14 @@ public class LoginActivity extends BaseActivity {
 			mPasswordView.setError(getString(R.string.error_field_required));
 			focusView = mPasswordView;
 			cancel = true;
-		} /*else if (mPassword.length() < 4) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
-			focusView = mPasswordView;
-			cancel = true;
-		}*/
+		}
 
 		// Check for a valid login.
 		if (TextUtils.isEmpty(mLogin)) {
 			mLoginView.setError(getString(R.string.error_field_required));
 			focusView = mLoginView;
 			cancel = true;
-		} /*else if (!mLogin.contains("@")) {
-			mLoginView.setError(getString(R.string.error_invalid_email));
-			focusView = mLoginView;
-			cancel = true;
-		}*/
+		}
 
 		if (cancel) {
 			// There was an error; don't attempt login and focus the first
@@ -165,25 +149,25 @@ public class LoginActivity extends BaseActivity {
 
 			mLoginStatusView.setVisibility(View.VISIBLE);
 			mLoginStatusView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 1 : 0)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mLoginStatusView.setVisibility(show ? View.VISIBLE
-									: View.GONE);
-						}
-					});
+			.alpha(show ? 1 : 0)
+			.setListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					mLoginStatusView.setVisibility(show ? View.VISIBLE
+							: View.GONE);
+				}
+			});
 
 			mLoginFormView.setVisibility(View.VISIBLE);
 			mLoginFormView.animate().setDuration(shortAnimTime)
-					.alpha(show ? 0 : 1)
-					.setListener(new AnimatorListenerAdapter() {
-						@Override
-						public void onAnimationEnd(Animator animation) {
-							mLoginFormView.setVisibility(show ? View.GONE
-									: View.VISIBLE);
-						}
-					});
+			.alpha(show ? 0 : 1)
+			.setListener(new AnimatorListenerAdapter() {
+				@Override
+				public void onAnimationEnd(Animator animation) {
+					mLoginFormView.setVisibility(show ? View.GONE
+							: View.VISIBLE);
+				}
+			});
 		} else {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
@@ -214,16 +198,22 @@ public class LoginActivity extends BaseActivity {
 			showProgress(false);
 
 			if (success) {
+				getSharedPreferences(PREFS_NAME,MODE_PRIVATE).edit()
+					.putString(Login, mLogin).commit();
 				finish();
 			} else {
+				getSharedPreferences(PREFS_NAME,MODE_PRIVATE).edit()
+		        	.putString(Login, null).commit();
 				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+				.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
 		}
 
 		@Override
 		protected void onCancelled() {
+			getSharedPreferences(PREFS_NAME,MODE_PRIVATE).edit()
+    			.putString(Login, null).commit();
 			mAuthTask = null;
 			showProgress(false);
 		}

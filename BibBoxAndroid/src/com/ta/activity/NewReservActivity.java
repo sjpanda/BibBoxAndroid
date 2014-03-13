@@ -8,6 +8,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.Menu;
@@ -31,7 +32,7 @@ import com.ta.service.ServiceSystemParameter;
  * @copyright TA Copyright
  * @brief La page d'accueil de l'application
  */
-public class MainActivity extends BaseActivity {
+public class NewReservActivity extends BaseActivity {
 	public final static String NB_PERSON = "com.ta.bibbox.NBPERSON";
 	public final static String EQUIP = "com.ta.bibbox.EQUIP";
 	public final static String LOCATION = "com.ta.bibbox.LOCATION";
@@ -52,7 +53,14 @@ public class MainActivity extends BaseActivity {
 			StrictMode.setThreadPolicy(policy);
 		}
 		
-		fillSpinners();
+		SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
+		String login = pref.getString(LoginActivity.Login, null);
+		if(login == null){
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		} else {
+			fillSpinners();
+		}
 		
 		/* DO NOT DELETE  */
 		//		tv = new TextView(this);
@@ -147,10 +155,11 @@ public class MainActivity extends BaseActivity {
 	private void initDate(int maxReservDays){
 		DatePicker dpDate = (DatePicker) findViewById(R.id.dp_date);
 		dpDate.setCalendarViewShown(false);
-		long now = (new Date()).getTime();
-		dpDate.setMinDate(now - 2000);
+		try{
+			dpDate.setMinDate((new Date()).getTime() - ONE_MINUTE_MILLIS);
+		} catch (Exception e) {}
 		if(maxReservDays > 0){
-			dpDate.setMaxDate((new Date(now + maxReservDays * 24 * 60 * ONE_MINUTE_MILLIS)).getTime());
+			dpDate.setMaxDate((new Date((new Date()).getTime() + maxReservDays * 24 * 60 * ONE_MINUTE_MILLIS)).getTime());
 		}
 	}
 	

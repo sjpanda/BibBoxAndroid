@@ -30,7 +30,7 @@ public class BaseActivity extends Activity {
 			openView(LoginActivity.class);
 			return true;
 		case R.id.action_new_reserv:
-			openView(MainActivity.class);
+			openView(NewReservActivity.class);
 			return true;
 		case R.id.action_my_reservs:
 			openView(MyReservsActivity.class);

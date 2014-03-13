@@ -11,7 +11,7 @@
     <string name="login_progress_signing_in">En cours &#8230;</string>
     <string name="error_invalid_login">Identifiant invalide</string>
     <string name="error_invalid_password">Mot de passe trop court</string>
-    <string name="error_incorrect_password">Mot de passe incorrect</string>
+    <string name="error_incorrect_password">Connexion échouée</string>
     <string name="error_field_required">Champs obligatoire</string>
 
 </resources>

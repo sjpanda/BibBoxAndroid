@@ -30,12 +30,12 @@ public class MonoAllocableActivity extends BaseActivity {
 
 		// Get information from the intent
 		Intent intent = getIntent();
-		int nbPerson = intent.getIntExtra(MainActivity.NB_PERSON, 0);
-		String equip = intent.getStringExtra(MainActivity.EQUIP);
-		String location = intent.getStringExtra(MainActivity.LOCATION);
-		String date = intent.getStringExtra(MainActivity.DATE);
-		String beginTime = intent.getStringExtra(MainActivity.BEGIN_TIME);
-		String endTime = intent.getStringExtra(MainActivity.END_TIME);
+		int nbPerson = intent.getIntExtra(NewReservActivity.NB_PERSON, 0);
+		String equip = intent.getStringExtra(NewReservActivity.EQUIP);
+		String location = intent.getStringExtra(NewReservActivity.LOCATION);
+		String date = intent.getStringExtra(NewReservActivity.DATE);
+		String beginTime = intent.getStringExtra(NewReservActivity.BEGIN_TIME);
+		String endTime = intent.getStringExtra(NewReservActivity.END_TIME);
 		
 //		System.out.println("fifi nbPerson : " + nbPerson);
 //		System.out.println("fifi equip : " + equip);

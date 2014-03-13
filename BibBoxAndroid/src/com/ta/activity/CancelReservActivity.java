@@ -1,14 +1,10 @@
 package com.ta.activity;
 
-import com.example.bibboxandroid.R;
-import com.example.bibboxandroid.R.layout;
-import com.example.bibboxandroid.R.menu;
-
-import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.Menu;
+import android.os.Bundle;
+
+import com.example.bibboxandroid.R;
 
 /**
  * @author Jing SHU

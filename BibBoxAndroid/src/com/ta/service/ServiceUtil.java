@@ -1,12 +1,9 @@
 package com.ta.service;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.MarshalHashtable;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
-
-import com.ta.pojo.ReservationState;
 
 /**
  * @author Jing SHU

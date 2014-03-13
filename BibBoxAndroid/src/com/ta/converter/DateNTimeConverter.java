@@ -1,13 +1,13 @@
 package com.ta.converter;
 
+import android.annotation.SuppressLint;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import android.text.format.Time;
-
+@SuppressLint("SimpleDateFormat")
 public class DateNTimeConverter {
 	public static String dateToTime(Date date){
 		DateFormat df = new SimpleDateFormat("HH:mm:ss");

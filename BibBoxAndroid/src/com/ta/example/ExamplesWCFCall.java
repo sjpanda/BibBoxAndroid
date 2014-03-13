@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.ta.converter.DateNTimeConverter;
-import com.ta.pojo.Location;
 import com.ta.pojo.MonoAllocable;
 import com.ta.pojo.Reservation;
 import com.ta.pojo.ReservationState;

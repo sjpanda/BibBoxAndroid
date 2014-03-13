@@ -1,13 +1,11 @@
 package com.ta.service;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 
-import com.ta.converter.CollectionConverter;
 import com.ta.converter.DateNTimeConverter;
 import com.ta.converter.ReservationConverter;
 import com.ta.pojo.Reservation;

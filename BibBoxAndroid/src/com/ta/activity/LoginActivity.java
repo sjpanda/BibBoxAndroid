@@ -3,7 +3,6 @@ package com.ta.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,9 +37,6 @@ public class LoginActivity extends BaseActivity {
 	// Values for login and password at the time of the login attempt.
 	private String mLogin;
 	private String mPassword;
-	
-	// La classe de la vue précédente
-	private Class prevView;
 
 	// UI references.
 	private EditText mLoginView;

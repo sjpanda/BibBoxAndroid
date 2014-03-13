@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.fragment.MyReservDetailFragment;
 import com.ta.bibbox.fragment.MyReservListFragment;
+import com.ta.bibbox.model.MyReservsViewModel;
 import com.ta.bibbox.pojo.Reservation;
 import com.ta.bibbox.service.ServiceReservation;
 
@@ -72,6 +73,7 @@ public class MyReservListActivity extends BaseActivity implements
 
 			ServiceReservation reserv = new ServiceReservation();
 			List<Reservation> reservations = reserv.GetAllReservationsByUser(login);
+			MyReservsViewModel.addItems(reservations);
 		}
 	}
 

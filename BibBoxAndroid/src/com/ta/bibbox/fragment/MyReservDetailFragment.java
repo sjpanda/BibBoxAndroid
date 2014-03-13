@@ -30,7 +30,7 @@ public class MyReservDetailFragment extends Fragment {
 	/**
 	 * The content this fragment is presenting.
 	 */
-	private MyReservsViewModel.DummyItem mItem;
+	private MyReservsViewModel.Item mItem;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -61,7 +61,7 @@ public class MyReservDetailFragment extends Fragment {
 		// Show the dummy content as text in a TextView.
 		if (mItem != null) {
 			((TextView) rootView.findViewById(R.id.myreserv_detail))
-					.setText(mItem.content);
+					.setText(mItem.getReservs().size());
 		}
 
 		return rootView;

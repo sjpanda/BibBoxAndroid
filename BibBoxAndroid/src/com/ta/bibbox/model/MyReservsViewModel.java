@@ -1,15 +1,12 @@
 package com.ta.bibbox.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.ta.bibbox.pojo.MonoAllocable;
-import com.ta.bibbox.pojo.MultiAllocable;
+import com.ta.bibbox.pojo.Reservation;
 import com.ta.bibbox.pojo.ReservationState;
-import com.ta.bibbox.pojo.User;
 
 /**
  * @author Jing SHU
@@ -22,99 +19,81 @@ public class MyReservsViewModel {
 	/**
 	 * An array of reservation items.
 	 */
-	public static List<DummyItem> ITEMS = new ArrayList<DummyItem>();
+	public static List<Item> ITEMS = new ArrayList<Item>();
 
 	/**
-	 * A map of sample (dummy) items, by ID.
+	 * A map of sample items, by ID.
 	 */
-	public static Map<String, DummyItem> ITEM_MAP = new HashMap<String, DummyItem>();
-
-	static {
-		// Add 3 sample items.
-		addItem(new DummyItem());
-		addItem(new DummyItem());
-		addItem(new DummyItem());
-	}
-
-	private static void addItem(DummyItem item) {
+	public static Map<String, Item> ITEM_MAP = new HashMap<String, Item>();
+	
+	private static List<Reservation> beingUsed = new ArrayList<Reservation>();
+	private static List<Reservation> waiting = new ArrayList<Reservation>();
+	private static List<Reservation> finished = new ArrayList<Reservation>();
+	private static List<Reservation> canceled = new ArrayList<Reservation>();
+	private static List<Reservation> absent = new ArrayList<Reservation>();
+	
+	public static void addItems(List<Reservation> reservs) {
+		ITEMS.clear();
+		ITEM_MAP.clear();
+		
+		dispatchReservations(reservs);
+		
+		Item item = new Item("1", "En cours", beingUsed);
 		ITEMS.add(item);
-		ITEM_MAP.put(String.valueOf(item.id), item);
+		item = new Item("2", "A venir", waiting);
+		ITEMS.add(item);
+		item = new Item("3", "Terminées", finished);
+		ITEMS.add(item);
+		item = new Item("4", "Annulées", canceled);
+		ITEMS.add(item);
+		item = new Item("5", "Abandonnées", absent);
+		ITEMS.add(item);
+		for(Item i : ITEMS){
+			ITEM_MAP.put(String.valueOf(i.id), i);
+		}	
 	}
 	
 	/**
-	 * A dummy item representing a piece of content.
+	 * A item representing a piece of content.
 	 */
-	public static class DummyItem {
-		public String content;
+	public static class Item {
+		private String id;
+		private String name;
+		private List<Reservation> reservations;
 		
-		
-		private int id;
-	    private Date beginDate;
-	    private Date endDate;
-	    private int nbUser;
-	    private ReservationState state;
-	    private MonoAllocable monoAllocable;
-	    private List<MultiAllocable> multiAllocables;
-	    private User leader;
-	    
-		public int getId() {
-			return id;
-		}
-		public void setId(int id) {
-			this.id = id;
-		}
-		public Date getBeginDate() {
-			return beginDate;
-		}
-		public void setBeginDate(Date beginDate) {
-			this.beginDate = beginDate;
-		}
-		public Date getEndDate() {
-			return endDate;
-		}
-		public void setEndDate(Date endDate) {
-			this.endDate = endDate;
-		}
-		public int getNbUser() {
-			return nbUser;
-		}
-		public void setNbUser(int nbUser) {
-			this.nbUser = nbUser;
-		}
-		public ReservationState getState() {
-			return state;
-		}
-		public void setState(ReservationState state) {
-			this.state = state;
-		}
-		public MonoAllocable getMonoAllocable() {
-			return monoAllocable;
-		}
-		public void setMonoAllocable(MonoAllocable monoAllocable) {
-			this.monoAllocable = monoAllocable;
-		}
-		public List<MultiAllocable> getMultiAllocables() {
-			return multiAllocables;
-		}
-		public void setMultiAllocables(List<MultiAllocable> multiAllocables) {
-			this.multiAllocables = multiAllocables;
-		}
-		public User getLeader() {
-			return leader;
-		}
-		public void setLeader(User leader) {
-			this.leader = leader;
-		}
-		
+		public String getId() { return id; }
+		public String getName() { return name; }
+		public List<Reservation> getReservs() { return reservations; }
 
-//		public DummyItem(String id, String content) {
-//			this.id = id;
-//			this.content = content;
-//		}
+		public Item(String id, String name, List<Reservation> reservs) {
+			this.id = id;
+			this.name = name;
+			this.reservations = reservs;
+		}
 
 		@Override
 		public String toString() {
-			return content;
+			return name;
+		}
+	}
+	
+	private static void dispatchReservations(List<Reservation> reservs){
+		for(Reservation r : reservs){
+			if(r.getState() == ReservationState.BeingUsed){
+				beingUsed.add(r);
+			}
+			if(r.getState() == ReservationState.Waiting){
+				waiting.add(r);
+			}
+			if(r.getState() == ReservationState.Finished){
+				finished.add(r);
+			}
+			if(r.getState() == ReservationState.Canceled){
+				canceled.add(r);
+			}
+			if(r.getState() == ReservationState.Absent){
+				absent.add(r);
+			}
 		}
 	}
 }

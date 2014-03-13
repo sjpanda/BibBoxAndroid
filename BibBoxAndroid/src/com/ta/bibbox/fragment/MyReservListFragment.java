@@ -73,7 +73,7 @@ public class MyReservListFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 
 		// TODO: replace with a real list adapter.
-		setListAdapter(new ArrayAdapter<MyReservsViewModel.DummyItem>(getActivity(),
+		setListAdapter(new ArrayAdapter<MyReservsViewModel.Item>(getActivity(),
 				android.R.layout.simple_list_item_activated_1,
 				android.R.id.text1, MyReservsViewModel.ITEMS));
 	}

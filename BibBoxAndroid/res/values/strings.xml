@@ -35,7 +35,8 @@
 
     <string name="title_activity_mono_allocable">Résultats de recherche</string>
     <string name="title_activity_base"></string>
-    <string name="title_activity_my_reservs">Mes réservations</string>
     <string name="title_activity_cancel_reserv">Annuler une réservation</string>
+    <string name="title_myreserv_list">Mes réservations</string>
+    <string name="title_myreserv_detail">Mes réservations</string>
 
 </resources>

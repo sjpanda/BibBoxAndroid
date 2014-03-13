@@ -23,12 +23,12 @@ public class CollectionConverter {
 		return result;
 	}
 	
-	public SoapObject mapStringIntToSoapObject(Map<String, Integer> keyValues, String name){
-		SoapObject o = new SoapObject(ServiceUtil.NAMESPACE, name);
+	public String mapStringIntToCustomString(Map<String, Integer> keyValues, String name){
+		StringBuffer s = new StringBuffer();
 		for(Entry<String, Integer> entry : keyValues.entrySet()){
-			o.addProperty(entry.getKey(), entry.getValue());
+			s.append(entry.getKey() + ":" + entry.getValue() + ";");
 		}
-		return o;
+		return s.toString();
 	}
 	
 	private static CollectionConverter collectionConverter;

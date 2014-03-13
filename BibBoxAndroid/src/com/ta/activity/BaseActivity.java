@@ -54,7 +54,7 @@ public class BaseActivity extends Activity {
 			openView(NewReservActivity.class);
 			return true;
 		case R.id.action_my_reservs:
-			openView(MyReservsActivity.class);
+			openView(MyReservListActivity.class);
 			return true;
 		case R.id.action_cancel_reserv:
 			openView(CancelReservActivity.class);

@@ -33,10 +33,6 @@
             android:label="@string/title_activity_base" >
         </activity>
         <activity
-            android:name="com.ta.activity.MyReservsActivity"
-            android:label="@string/title_activity_my_reservs" >
-        </activity>
-        <activity
             android:name="com.ta.activity.CancelReservActivity"
             android:label="@string/title_activity_cancel_reserv" >
         </activity>
@@ -44,6 +40,18 @@
             android:name="com.ta.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="com.ta.activity.MyReservListActivity"
+            android:label="@string/title_myreserv_list" >
+        </activity>
+        <activity
+            android:name="com.ta.activity.MyReservDetailActivity"
+            android:label="@string/title_myreserv_detail"
+            android:parentActivityName="com.ta.activity.MyReservListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MyReservListActivity" />
         </activity>
     </application>
 

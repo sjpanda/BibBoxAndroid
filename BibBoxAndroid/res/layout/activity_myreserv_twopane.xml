@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/myreserv_list"
-        android:name="com.ta.fragment.MyReservListFragment"
+        android:name="com.ta.bibbox.fragment.MyReservListFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

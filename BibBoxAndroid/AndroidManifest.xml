@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.ta.activity.NewReservActivity"
+            android:name="com.ta.bibbox.activity.NewReservActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,30 +25,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ta.activity.MonoAllocableActivity"
+            android:name="com.ta.bibbox.activity.MonoAllocableActivity"
             android:label="@string/title_activity_mono_allocable" >
         </activity>
         <activity
-            android:name="com.ta.activity.BaseActivity"
+            android:name="com.ta.bibbox.activity.BaseActivity"
             android:label="@string/title_activity_base" >
         </activity>
         <activity
-            android:name="com.ta.activity.CancelReservActivity"
+            android:name="com.ta.bibbox.activity.CancelReservActivity"
             android:label="@string/title_activity_cancel_reserv" >
         </activity>
         <activity
-            android:name="com.ta.activity.LoginActivity"
+            android:name="com.ta.bibbox.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
-            android:name="com.ta.activity.MyReservListActivity"
+            android:name="com.ta.bibbox.activity.MyReservListActivity"
             android:label="@string/title_myreserv_list" >
         </activity>
         <activity
-            android:name="com.ta.activity.MyReservDetailActivity"
+            android:name="com.ta.bibbox.activity.MyReservDetailActivity"
             android:label="@string/title_myreserv_detail"
-            android:parentActivityName="com.ta.activity.MyReservListActivity" >
+            android:parentActivityName="com.ta.bibbox.activity.MyReservListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyReservListActivity" />

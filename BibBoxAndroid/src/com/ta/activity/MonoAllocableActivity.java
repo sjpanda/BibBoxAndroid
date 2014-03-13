@@ -28,6 +28,11 @@ public class MonoAllocableActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();  // Always call the superclass method first
 
 		SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
 		String login = pref.getString(LoginActivity.Login, null);
@@ -43,13 +48,13 @@ public class MonoAllocableActivity extends BaseActivity {
 			String date = intent.getStringExtra(NewReservActivity.DATE);
 			String beginTime = intent.getStringExtra(NewReservActivity.BEGIN_TIME);
 			String endTime = intent.getStringExtra(NewReservActivity.END_TIME);
-			
-//			System.out.println("fifi nbPerson : " + nbPerson);
-//			System.out.println("fifi equip : " + equip);
-//			System.out.println("fifi location : " + location);
-//			System.out.println("fifi date : " + date);
-//			System.out.println("fifi beginTime : " + beginTime);
-//			System.out.println("fifi endTime : " + endTime);
+
+			//				System.out.println("fifi nbPerson : " + nbPerson);
+			//				System.out.println("fifi equip : " + equip);
+			//				System.out.println("fifi location : " + location);
+			//				System.out.println("fifi date : " + date);
+			//				System.out.println("fifi beginTime : " + beginTime);
+			//				System.out.println("fifi endTime : " + endTime);
 
 			ServiceAllocable alloc = new ServiceAllocable();
 			List<MonoAllocable> monoAllocables = alloc.SearchMonoAllocables(nbPerson, equip, location, date, beginTime, endTime);
@@ -58,9 +63,9 @@ public class MonoAllocableActivity extends BaseActivity {
 				for(MonoAllocable m : monoAllocables){
 					names.add(m.getName());
 				}
-//				BaseExpandableListAdapter adapter = new BaseExpandableListAdapter(this, names, null);
-//				ExpandableListView lvMono = (ExpandableListView) findViewById(R.id.listView_mono);
-//				lvMono.setAdapter(adapter);
+				//					BaseExpandableListAdapter adapter = new BaseExpandableListAdapter(this, names, null);
+				//					ExpandableListView lvMono = (ExpandableListView) findViewById(R.id.listView_mono);
+				//					lvMono.setAdapter(adapter);
 				setContentView(R.layout.activity_mono_allocable);
 			} else {
 				TextView tv = new TextView(this);

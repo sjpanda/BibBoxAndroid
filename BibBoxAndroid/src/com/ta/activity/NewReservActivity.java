@@ -46,20 +46,10 @@ public class NewReservActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
 
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
-		}
-		
-		SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
-		String login = pref.getString(LoginActivity.Login, null);
-		if(login == null){
-			Intent intent = new Intent(this, LoginActivity.class);
-			startActivity(intent);
-		} else {
-			fillSpinners();
 		}
 		
 		/* DO NOT DELETE  */
@@ -69,6 +59,21 @@ public class NewReservActivity extends BaseActivity {
 		//		tv.setText("result of wcf : \n" + ExamplesWCFCall.testWCFCall());
 		//		setContentView(tv);
 		/* END */
+	}
+	
+	@Override
+	public void onResume() {
+	    super.onResume();  // Always call the superclass method first
+
+	    SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
+		String login = pref.getString(LoginActivity.Login, null);
+		if(login == null){
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		} else {
+			setContentView(R.layout.activity_main);
+			fillSpinners();
+		}
 	}
 	
 	/** Called when the user clicks the Search button */
@@ -157,7 +162,7 @@ public class NewReservActivity extends BaseActivity {
 		dpDate.setCalendarViewShown(false);
 		try{
 			dpDate.setMinDate((new Date()).getTime() - ONE_MINUTE_MILLIS);
-		} catch (Exception e) {}
+		} catch (Exception e){}
 		if(maxReservDays > 0){
 			dpDate.setMaxDate((new Date((new Date()).getTime() + maxReservDays * 24 * 60 * ONE_MINUTE_MILLIS)).getTime());
 		}

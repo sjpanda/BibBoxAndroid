@@ -3,6 +3,7 @@ package com.ta.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,9 +25,6 @@ import com.ta.service.ServiceAuthentification;
  * @brief La page de connexion
  */
 public class LoginActivity extends BaseActivity {
-	/**
-	 * The default login to populate the login field with.
-	 */
 	public static final String Login = "com.ta.bibbox.Login";
 
 	/**
@@ -40,6 +38,9 @@ public class LoginActivity extends BaseActivity {
 	// Values for login and password at the time of the login attempt.
 	private String mLogin;
 	private String mPassword;
+	
+	// La classe de la vue précédente
+	private Class prevView;
 
 	// UI references.
 	private EditText mLoginView;
@@ -83,7 +84,7 @@ public class LoginActivity extends BaseActivity {
 					public void onClick(View view) {
 						attemptLogin();
 					}
-				});
+				});		
 	}
 
 	/**

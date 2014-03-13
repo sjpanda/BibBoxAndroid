@@ -7,6 +7,7 @@
     <string name="action_my_reservs">Mes Réservations</string>
     <string name="action_cancel_reserv">Annuler une réservation</string>
     <string name="action_login">Connexion</string>
+    <string name="action_logout">Déconnexion</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_login">Connexion</string>
     <string name="edit_login">Identifiant</string>

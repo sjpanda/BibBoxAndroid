@@ -43,6 +43,22 @@ public class MyReservListActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.activity_myreserv_list);
+
+		if (findViewById(R.id.myreserv_detail_container) != null) {
+			// The detail container view will be present only in the
+			// large-screen layouts (res/values-large and
+			// res/values-sw600dp). If this view is present, then the
+			// activity should be in two-pane mode.
+			mTwoPane = true;
+
+			// In two-pane mode, list items should be given the
+			// 'activated' state when touched.
+			((MyReservListFragment) getSupportFragmentManager()
+					.findFragmentById(R.id.myreserv_list))
+					.setActivateOnItemClick(true);
+		}
 	}
 	
 	@Override
@@ -55,22 +71,6 @@ public class MyReservListActivity extends BaseActivity implements
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		} else {
-			setContentView(R.layout.activity_myreserv_list);
-
-			if (findViewById(R.id.myreserv_detail_container) != null) {
-				// The detail container view will be present only in the
-				// large-screen layouts (res/values-large and
-				// res/values-sw600dp). If this view is present, then the
-				// activity should be in two-pane mode.
-				mTwoPane = true;
-
-				// In two-pane mode, list items should be given the
-				// 'activated' state when touched.
-				((MyReservListFragment) getSupportFragmentManager()
-						.findFragmentById(R.id.myreserv_list))
-						.setActivateOnItemClick(true);
-			}
-
 			ServiceReservation reserv = new ServiceReservation();
 			List<Reservation> reservations = reserv.GetAllReservationsByUser(login);
 			MyReservsViewModel.addItems(reservations);

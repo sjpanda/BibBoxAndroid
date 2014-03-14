@@ -1,17 +1,12 @@
 package com.ta.bibbox.activity;
 
-import com.example.bibboxandroid.R;
-import com.example.bibboxandroid.R.id;
-import com.example.bibboxandroid.R.layout;
-import com.ta.bibbox.fragment.MyReservDetailFragment;
-import com.ta.bibbox.fragment.MyReservListFragment;
-
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+
+import com.example.bibboxandroid.R;
+import com.ta.bibbox.fragment.MyReservDetailFragment;
 
 /**
  * @author Jing SHU

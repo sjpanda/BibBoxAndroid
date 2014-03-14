@@ -33,6 +33,7 @@ public class MyReservsViewModel {
 	private static List<Reservation> absent = new ArrayList<Reservation>();
 	
 	public static void addItems(List<Reservation> reservs) {
+		for(Item i : ITEMS) { i.getReservs().clear(); }
 		ITEMS.clear();
 		ITEM_MAP.clear();
 		

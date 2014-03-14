@@ -1,15 +1,25 @@
 package com.ta.bibbox.fragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.activity.MyReservDetailActivity;
 import com.ta.bibbox.activity.MyReservListActivity;
+import com.ta.bibbox.adapter.ReservAdapter;
+import com.ta.bibbox.converter.DateNTimeConverter;
+import com.ta.bibbox.model.AReservViewModel.ReservDetail;
+import com.ta.bibbox.model.AReservViewModel.ReservList;
 import com.ta.bibbox.model.MyReservsViewModel;
 import com.ta.bibbox.pojo.Reservation;
 
@@ -31,6 +41,9 @@ public class MyReservDetailFragment extends Fragment {
 	 * The content this fragment is presenting.
 	 */
 	private MyReservsViewModel.Item mItem;
+	
+	private List<ReservList> header;
+	private Map<ReservList, List<ReservDetail>> children;
 
 	/**
 	 * Mandatory empty constructor for the fragment manager to instantiate the
@@ -58,12 +71,38 @@ public class MyReservDetailFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_myreserv_detail,
 				container, false);
 
-		// Show the dummy content as text in a TextView.
+		// Show the content as text in a TextView.
 		if (mItem != null) {
-			((TextView) rootView.findViewById(R.id.myreserv_detail))
-					.setText(mItem.getReservs().size());
+			TextView head = (TextView) rootView.findViewById(R.id.myreserv_detail_text);
+			if((mItem.getReservs() == null) || (mItem.getReservs().size() == 0)){
+				head.setText("Aucune réservation dans cette catégorie");
+			} else {
+				head.setText("");
+				head.setVisibility(View.GONE);
+				dispatchReservations(mItem.getReservs());
+				ExpandableListView expListView = ((ExpandableListView) rootView.findViewById(R.id.myreserv_detail_list));
+				ReservAdapter adapter = new ReservAdapter(getActivity(), header, children);
+				expListView.setAdapter(adapter);
+			}
 		}
 
 		return rootView;
+	}
+	
+	private void dispatchReservations(List<Reservation> reservs){
+		header = new ArrayList<ReservList>();
+		children = new HashMap<ReservList, List<ReservDetail>>();
+		for(Reservation r : reservs){
+			ReservList l = new ReservList(r.getMonoAllocable().getLocation().getName(), r.getMonoAllocable().getName());
+			header.add(l);
+			List<ReservDetail> ld = new ArrayList<ReservDetail>();
+			ReservDetail d1 = new ReservDetail("Date de début", DateNTimeConverter.dateToTime(r.getBeginDate()));
+			ReservDetail d2 = new ReservDetail("Date de fin", DateNTimeConverter.dateToTime(r.getEndDate()));
+			ReservDetail d3 = new ReservDetail("Nombre de personne", DateNTimeConverter.dateToTime(r.getBeginDate()));
+			ld.add(d1);
+			ld.add(d2);
+			ld.add(d3);
+			children.put(l, ld);
+		}
 	}
 }

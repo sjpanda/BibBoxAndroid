@@ -12,23 +12,22 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.bibboxandroid.R;
-import com.ta.bibbox.model.AReservViewModel;
-import com.ta.bibbox.model.AReservViewModel.ReservDetail;
-import com.ta.bibbox.model.AReservViewModel.ReservList;
+import com.ta.bibbox.model.AMonoAllocableViewModel.MonoAllocableDetail;
+import com.ta.bibbox.model.AMonoAllocableViewModel.MonoAllocableList;
 
 /**
  * @author Jing SHU
- * @date 13/03/2014
+ * @date 17/03/2014
  * @copyright TA Copyright
- * @brief L'adaptateur personalisé pour ExpandableListView des réservations
+ * @brief L'adaptateur personalisé pour ExpandableListView des mono-allouables
  */
-public class ReservAdapter extends BaseExpandableListAdapter {
+public class MonoAllocableAdapter extends BaseExpandableListAdapter {
 	private Context context;
-	private List<ReservList> listDataHeader; 
-	private Map<ReservList, List<ReservDetail>> listDataChild;
+	private List<MonoAllocableList> listDataHeader; 
+	private Map<MonoAllocableList, List<MonoAllocableDetail>> listDataChild;
 
-	public ReservAdapter(Context context, List<ReservList> listDataHeader, 
-			Map<ReservList, List<ReservDetail>> listDataChild){
+	public MonoAllocableAdapter(Context context, List<MonoAllocableList> listDataHeader, 
+			Map<MonoAllocableList, List<MonoAllocableDetail>> listDataChild){
 		this.context = context;
 		this.listDataHeader = listDataHeader;
 		this.listDataChild = listDataChild;
@@ -48,14 +47,14 @@ public class ReservAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getChildView(int groupPosition, final int childPosition,
 			boolean isLastChild, View convertView, ViewGroup parent) {
-		final ReservDetail child = (ReservDetail) getChild(groupPosition, childPosition);
+		final MonoAllocableDetail child = (MonoAllocableDetail) getChild(groupPosition, childPosition);
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.areserv_detail, null);
+			convertView = infalInflater.inflate(R.layout.amono_detail, null);
 		}
 		TextView txtListChild = (TextView) convertView
-				.findViewById(R.id.areserv_detail);
+				.findViewById(R.id.amono_detail);
 		txtListChild.setText(child.getName() + " : " + child.getValue());
 		return convertView;
 	}
@@ -85,16 +84,16 @@ public class ReservAdapter extends BaseExpandableListAdapter {
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded,
 			View convertView, ViewGroup parent) {
-		AReservViewModel.ReservList header = (AReservViewModel.ReservList) getGroup(groupPosition);
+		MonoAllocableList header = (MonoAllocableList) getGroup(groupPosition);
 		if (convertView == null) {
 			LayoutInflater infalInflater = (LayoutInflater) this.context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = infalInflater.inflate(R.layout.areserv_list, null);
+			convertView = infalInflater.inflate(R.layout.amono_list, null);
 		}
 		TextView listHeader = (TextView) convertView
-				.findViewById(R.id.areserv_list);
+				.findViewById(R.id.amono_list);
 		listHeader.setTypeface(null, Typeface.BOLD);
-		listHeader.setText(header.getMonoAllocableName() + " (" + header.getLcoation() + ")");
+		listHeader.setText(header.getName() + " (" + header.getLcoation() + ")");
 
 		return convertView;
 	}
@@ -108,4 +107,5 @@ public class ReservAdapter extends BaseExpandableListAdapter {
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}
+
 }

@@ -83,7 +83,7 @@ public class NewReservActivity extends BaseActivity {
 	    int nbPerson = (Integer)spnNbPerson.getSelectedItem();
 	    String equip = spnEquips.getSelectedItem().toString();
 	    String location = spnLocation.getSelectedItem().toString();
-	    String date = dpDate.getYear() + "-" + dpDate.getMonth() + "-" + dpDate.getDayOfMonth() + " 00:00:00";
+	    String date = dpDate.getYear() + "-" + (dpDate.getMonth() + 1) + "-" + dpDate.getDayOfMonth() + " 00:00:00";
 	    String beginTime = spnBeginTime.getSelectedItem().toString();
 	    String endTime = spnEndTime.getSelectedItem().toString();
 	    

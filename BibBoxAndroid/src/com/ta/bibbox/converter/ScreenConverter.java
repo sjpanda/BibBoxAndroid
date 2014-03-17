@@ -24,6 +24,22 @@ public class ScreenConverter {
 		}
 		return null;
 	}
+	
+	public String convertToString(Screen screen) {
+		if(screen == Screen.Interactive){
+			return "Un écran interactif";
+		}
+		if(screen == Screen.BigClassic){
+			return "Un écran mural classique de taille grande";
+		}
+		if(screen == Screen.MediumClassic){
+			return "Un écran mural classique de taille moyenne";
+		}
+		if(screen == Screen.None){
+			return "Pas d'écran";
+		}
+		return "Non défini";
+	}
 
 	private static ScreenConverter screenConverter;
 	private ScreenConverter() {}

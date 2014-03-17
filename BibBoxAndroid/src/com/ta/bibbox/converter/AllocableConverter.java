@@ -20,7 +20,7 @@ import com.ta.bibbox.pojo.Type;
 public class AllocableConverter {
 	public Allocable convertToObject(SoapObject soapObject) {
 		if(soapObject == null) { return null; }			
-		try{	
+		try{
 			Allocable a;
 			Type type = TypeConverter.instance().convertToObject((SoapObject)soapObject.getProperty("Type"));
 			if(type instanceof BoxType){
@@ -28,11 +28,10 @@ public class AllocableConverter {
 			} else {
 				a = new MultiAllocable();
 				((MultiAllocable)a).setBarCode(soapObject.getProperty("BarCode").toString());
-				
 			}
 			a.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));
-			a.setName(soapObject.getProperty("Name").toString());
-			a.setDescription(soapObject.getProperty("Description").toString());
+			a.setName(ConverterUtil.convertNullObject(soapObject.getProperty("Name").toString()));
+			a.setDescription(ConverterUtil.convertNullObject(soapObject.getProperty("Description").toString()));
 			a.setLocation(LocationConverter.instance().convertToObject((SoapObject)soapObject.getProperty("Location")));
 			a.setType(type);
 			a.setState(AllocableStateConverter.instance().convertToObject(soapObject.getProperty("State").toString()));

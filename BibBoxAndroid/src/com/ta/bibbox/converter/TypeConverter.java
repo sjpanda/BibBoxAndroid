@@ -30,13 +30,13 @@ public class TypeConverter {
 			} else {
 				if(allAttributesNames.contains("CPU")){
 					type = new PCType();
-					((PCType)type).setBrand(soapObject.getProperty("Brand").toString());
-					((PCType)type).setCpu(soapObject.getProperty("CPU").toString());
-					((PCType)type).setDiskSize(soapObject.getProperty("DiskSize").toString());
-					((PCType)type).setRam(soapObject.getProperty("RAM").toString());
+					((PCType)type).setBrand(ConverterUtil.convertNullObject(soapObject.getProperty("Brand").toString()));
+					((PCType)type).setCpu(ConverterUtil.convertNullObject(soapObject.getProperty("CPU").toString()));
+					((PCType)type).setDiskSize(ConverterUtil.convertNullObject(soapObject.getProperty("DiskSize").toString()));
+					((PCType)type).setRam(ConverterUtil.convertNullObject(soapObject.getProperty("RAM").toString()));
 				} else {
 					type = new HeadPhoneType();
-					((HeadPhoneType)type).setBrand(soapObject.getProperty("Brand").toString());
+					((HeadPhoneType)type).setBrand(ConverterUtil.convertNullObject(soapObject.getProperty("Brand").toString()));
 				}
 			}
 			type.setId(Integer.parseInt(soapObject.getProperty("ID").toString()));

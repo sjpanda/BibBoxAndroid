@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.converter.DateNTimeConverter;
@@ -72,20 +73,35 @@ public class NewReservActivity extends BaseActivity {
 	
 	/** Called when the user clicks the Search button */
 	public void openSearchMonoAllocables(View view) {
+		Spinner spnBeginTime = (Spinner) findViewById(R.id.spinner_beginTime);
+	    Spinner spnEndTime = (Spinner) findViewById(R.id.spinner_endTime);
+		String beginTime = spnBeginTime.getSelectedItem().toString();
+	    String endTime = spnEndTime.getSelectedItem().toString();
+		Date theBeginTime = DateNTimeConverter.stringToTime(beginTime);
+		Date theEndTime = DateNTimeConverter.stringToTime(endTime);
+		if(! theBeginTime.before(theEndTime)){
+			Toast.makeText(this.getApplicationContext(),"L'heure de début doit être plus tôt que l'heure de fin", Toast.LENGTH_LONG).show();
+			return;
+		}
+		
+		DatePicker dpDate = (DatePicker) findViewById(R.id.dp_date);
+		String date = dpDate.getYear() + "-" + (dpDate.getMonth() + 1) + "-" + dpDate.getDayOfMonth() + " 00:00:00";
+		Date theDate = DateNTimeConverter.stringToDate(date);
+		Date theBeginDateTime = new Date(theDate.getTime() + theBeginTime.getTime() + 61*60*1000);
+		if(theBeginDateTime.before(new Date())){
+			Toast.makeText(this.getApplicationContext(),"L'heure de début doit être plus tard que maintenant", Toast.LENGTH_LONG).show();
+			return;
+		}
+		
 		Intent intent = new Intent(this, MonoAllocableActivity.class);
 	    Spinner spnNbPerson = (Spinner) findViewById(R.id.spinner_nbPerson);
 	    Spinner spnEquips = (Spinner) findViewById(R.id.spinner_equips);
 	    Spinner spnLocation = (Spinner) findViewById(R.id.spinner_location);
-	    DatePicker dpDate = (DatePicker) findViewById(R.id.dp_date);
-	    Spinner spnBeginTime = (Spinner) findViewById(R.id.spinner_beginTime);
-	    Spinner spnEndTime = (Spinner) findViewById(R.id.spinner_endTime);
 	    
 	    int nbPerson = (Integer)spnNbPerson.getSelectedItem();
 	    String equip = spnEquips.getSelectedItem().toString();
 	    String location = spnLocation.getSelectedItem().toString();
-	    String date = dpDate.getYear() + "-" + (dpDate.getMonth() + 1) + "-" + dpDate.getDayOfMonth() + " 00:00:00";
-	    String beginTime = spnBeginTime.getSelectedItem().toString();
-	    String endTime = spnEndTime.getSelectedItem().toString();
+	    
 	    
 		intent.putExtra(NB_PERSON, nbPerson);
 		intent.putExtra(EQUIP, equip);

@@ -53,9 +53,18 @@ public class MonoAllocableAdapter extends BaseExpandableListAdapter {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = infalInflater.inflate(R.layout.amono_detail, null);
 		}
-		TextView txtListChild = (TextView) convertView
-				.findViewById(R.id.amono_detail);
-		txtListChild.setText(child.getName() + " : " + child.getValue());
+		TextView txtListChildNumBox = (TextView) convertView
+				.findViewById(R.id.value_num_mono);
+		txtListChildNumBox.setText(child.getId());
+		TextView txtListChildNbPlace = (TextView) convertView
+				.findViewById(R.id.value_nb_place);
+		txtListChildNbPlace.setText(child.getNbSeat());
+		TextView txtListChildEquips = (TextView) convertView
+				.findViewById(R.id.value_equips);
+		txtListChildEquips.setText(child.getScreen());
+		TextView txtListChildDescript = (TextView) convertView
+				.findViewById(R.id.value_descript);
+		txtListChildDescript.setText(child.getDescription());
 		return convertView;
 	}
 

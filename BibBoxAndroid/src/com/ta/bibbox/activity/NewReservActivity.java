@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
@@ -67,12 +68,17 @@ public class NewReservActivity extends BaseActivity {
 			startActivity(intent);
 		} else {
 			setContentView(R.layout.activity_main);
-			fillSpinners();
+			try{
+				fillSpinners();
+			} catch (Exception e){
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	/** Called when the user clicks the Search button */
 	public void openSearchMonoAllocables(View view) {
+		try{
 		Spinner spnBeginTime = (Spinner) findViewById(R.id.spinner_beginTime);
 	    Spinner spnEndTime = (Spinner) findViewById(R.id.spinner_endTime);
 		String beginTime = spnBeginTime.getSelectedItem().toString();
@@ -102,15 +108,19 @@ public class NewReservActivity extends BaseActivity {
 	    String equip = spnEquips.getSelectedItem().toString();
 	    String location = spnLocation.getSelectedItem().toString();
 	    
-	    
-		intent.putExtra(NB_PERSON, nbPerson);
-		intent.putExtra(EQUIP, equip);
-		intent.putExtra(LOCATION, location);
-		intent.putExtra(DATE, date);
-		intent.putExtra(BEGIN_TIME, beginTime);
-		intent.putExtra(END_TIME, endTime);
+	    Editor editor = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE).edit();
+	    editor.putInt(NB_PERSON, nbPerson);
+	    editor.putString(EQUIP, equip);
+	    editor.putString(LOCATION, location);
+	    editor.putString(DATE, date);
+	    editor.putString(BEGIN_TIME, beginTime);
+	    editor.putString(END_TIME, endTime);
+	    editor.commit();
 		
 		startActivity(intent);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void fillSpinners(){

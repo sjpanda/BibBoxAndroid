@@ -53,6 +53,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MyReservListActivity" />
         </activity>
+        <activity
+            android:name="com.ta.bibbox.activity.MultiAllocableActivity"
+            android:label="@string/title_activity_multi_allocable" >
+        </activity>
+        <activity
+            android:name="com.ta.bibbox.activity.SummaryActivity"
+            android:label="@string/title_activity_summary" >
+        </activity>
     </application>
 
 </manifest>

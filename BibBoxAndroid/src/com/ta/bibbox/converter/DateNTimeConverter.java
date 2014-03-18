@@ -35,17 +35,27 @@ public class DateNTimeConverter {
 	}
 
 	public static String dateToISO8601(String date){
-		TimeZone tz = TimeZone.getTimeZone("PT");
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-		df.setTimeZone(tz);
-		return df.format(stringToDate(date));
+		try {
+			TimeZone tz = TimeZone.getTimeZone("PT");
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+			df.setTimeZone(tz);
+			return df.format(stringToDate(date));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static String timeToISO8601(String time){
-		TimeZone tz = TimeZone.getTimeZone("PT");
-		DateFormat df = new SimpleDateFormat("'PT'HH'H'mm'M'ss'S'");
-		df.setTimeZone(tz);
-		return df.format(stringToTime(time));
+		try{
+			TimeZone tz = TimeZone.getTimeZone("PT");
+			DateFormat df = new SimpleDateFormat("'PT'HH'H'mm'M'ss'S'");
+			df.setTimeZone(tz);
+			return df.format(stringToTime(time));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public static Date ISO8601toDate(String iso8601Date){

@@ -21,6 +21,14 @@
     <string name="search_mono_beginTime">Horaire de début</string>
     <string name="search_mono_endTime">Horaire de fin</string>
     <string name="search">Rechercher</string>
+    <string name="label_num_mono">N° de box</string>
+    <string name="label_nb_place">Nombre de places assises</string>
+    <string name="label_equips">Nombre de places assises</string>
+    <string name="label_descript">Nombre de places assises</string>
+    <string name="reserve">Réserver</string>
+    <string name="message_select_multi_allocables">Sélection de matériaux</string>
+    <string name="no_multi_allocable">Pas de matériel</string>
+    <string name="confirm">Confirmation</string>
 
     <string-array name="country_arrays">
         <item>Malaysia</item>
@@ -38,8 +46,7 @@
     <string name="title_activity_cancel_reserv">Annuler une réservation</string>
     <string name="title_myreserv_list">Mes réservations</string>
     <string name="title_myreserv_detail">Mes réservations</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_areserv_list">AReserv</string>
-    <string name="title_areserv_detail">AReserv Detail</string>
+    <string name="title_activity_multi_allocable">Matériaux</string>
+    <string name="title_activity_summary">SummaryActivity</string>
 
 </resources>

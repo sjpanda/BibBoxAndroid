@@ -42,28 +42,48 @@ public class AMonoAllocableViewModel {
 	}
 	
 	public static class MonoAllocableDetail{
-		private String name;
-	    private String value;
+		private String id;
+		private String nbSeat;
+	    private String screen;
+	    private String description;
 	    
-	    public MonoAllocableDetail(String name, String value){
-	    	this.name = name;
-	    	this.value = value;
+	    public MonoAllocableDetail(String id, String nbSeat, String screen, String description){
+	    	this.id = id;
+	    	this.nbSeat = nbSeat;
+	    	this.screen = screen;
+	    	this.description = description;
 	    }
 
-		public String getName() {
-			return name;
+		public String getId() {
+			return id;
 		}
 
-		public void setName(String name) {
-			this.name = name;
+		public void setId(String id) {
+			this.id = id;
 		}
 
-		public String getValue() {
-			return value;
+		public String getNbSeat() {
+			return nbSeat;
 		}
 
-		public void setValue(String value) {
-			this.value = value;
+		public void setNbSeat(String nbSeat) {
+			this.nbSeat = nbSeat;
+		}
+
+		public String getScreen() {
+			return screen;
+		}
+
+		public void setScreen(String screen) {
+			this.screen = screen;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
 		}
 	}
 }

@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
@@ -30,6 +30,8 @@ import com.ta.bibbox.service.ServiceAllocable;
 public class MonoAllocableActivity extends BaseActivity {
 	private List<MonoAllocableList> header;
 	private Map<MonoAllocableList, List<MonoAllocableDetail>> children;
+	
+	public final static String NUM_MONO = "com.ta.bibbox.NUM_MONO";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,13 +50,22 @@ public class MonoAllocableActivity extends BaseActivity {
 			startActivity(intent);
 		} else {
 			// Get information from the intent
-			Intent intent = getIntent();
-			int nbPerson = intent.getIntExtra(NewReservActivity.NB_PERSON, 0);
-			String equip = intent.getStringExtra(NewReservActivity.EQUIP);
-			String location = intent.getStringExtra(NewReservActivity.LOCATION);
-			String date = intent.getStringExtra(NewReservActivity.DATE);
-			String beginTime = intent.getStringExtra(NewReservActivity.BEGIN_TIME);
-			String endTime = intent.getStringExtra(NewReservActivity.END_TIME);
+//			Intent intent = getIntent();
+//			int nbPerson = intent.getIntExtra(NewReservActivity.NB_PERSON, 0);
+//			String equip = intent.getStringExtra(NewReservActivity.EQUIP);
+//			String location = intent.getStringExtra(NewReservActivity.LOCATION);
+//			String date = intent.getStringExtra(NewReservActivity.DATE);
+//			String beginTime = intent.getStringExtra(NewReservActivity.BEGIN_TIME);
+//			String endTime = intent.getStringExtra(NewReservActivity.END_TIME);
+			
+			int nbPerson = pref.getInt(NewReservActivity.NB_PERSON, 0);
+			String equip = pref.getString(NewReservActivity.EQUIP, null);
+			String location = pref.getString(NewReservActivity.LOCATION, null);
+			String date = pref.getString(NewReservActivity.DATE, null);
+			String beginTime = pref.getString(NewReservActivity.BEGIN_TIME, null);
+			String endTime = pref.getString(NewReservActivity.END_TIME, null);
+			
+
 
 //							System.out.println("fifi nbPerson : " + nbPerson);
 //							System.out.println("fifi equip : " + equip);
@@ -84,6 +95,16 @@ public class MonoAllocableActivity extends BaseActivity {
 			}
 		}
 	}
+	
+	/** Called when the user clicks the Reservation button */
+	public void openSearchMultiAllocables(View view) {
+		TextView tvNumMonoAllocable = (TextView) findViewById(R.id.value_num_mono);
+		int numMonoAllocable = Integer.parseInt(tvNumMonoAllocable.getText().toString());
+		getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE).edit().putInt(NUM_MONO, numMonoAllocable).commit();
+		
+		Intent intent = new Intent(this, MultiAllocableActivity.class);
+		startActivity(intent);
+	}
 
 	private void dispatchMonoAllocables(List<MonoAllocable> monoAllocables){
 		if(monoAllocables == null) { return; }
@@ -93,14 +114,12 @@ public class MonoAllocableActivity extends BaseActivity {
 			MonoAllocableList l = new MonoAllocableList(m.getLocation().getName(), m.getName());
 			header.add(l);
 			List<MonoAllocableDetail> ld = new ArrayList<MonoAllocableDetail>();
-			MonoAllocableDetail d1 = new MonoAllocableDetail("N° de box", String.valueOf(m.getId()));
-			MonoAllocableDetail d2 = new MonoAllocableDetail("Nombre de places assises", String.valueOf(((BoxType)m.getType()).getNbSeat()));
-			MonoAllocableDetail d3 = new MonoAllocableDetail("Équipements", ScreenConverter.instance().convertToString(((BoxType)m.getType()).getScreen()));
-			MonoAllocableDetail d4 = new MonoAllocableDetail("Description", m.getDescription());
-			ld.add(d1);
-			ld.add(d2);
-			ld.add(d3);
-			ld.add(d4);
+			MonoAllocableDetail d = new MonoAllocableDetail(
+							String.valueOf(m.getId()), 
+							String.valueOf(((BoxType)m.getType()).getNbSeat()),
+							ScreenConverter.instance().convertToString(((BoxType)m.getType()).getScreen()),
+							m.getDescription());
+			ld.add(d);
 			children.put(l, ld);
 		}
 	}

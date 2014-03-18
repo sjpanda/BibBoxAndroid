@@ -6,8 +6,6 @@ import java.util.Map.Entry;
 
 import org.ksoap2.serialization.SoapObject;
 
-import com.ta.bibbox.service.ServiceUtil;
-
 public class CollectionConverter {
 	public Map<String, Integer> convertToMapStringIntObject(SoapObject soapObject) {
 		if(soapObject == null) { return null; }

@@ -1,6 +1,7 @@
 package com.ta.bibbox.activity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.bibboxandroid.R;
@@ -25,6 +27,8 @@ import com.ta.bibbox.service.ServiceAllocable;
  */
 public class MultiAllocableActivity extends BaseActivity  {
 	private Map<String, Integer> multiAllocables;
+	
+	public final static String MULTI_ALLOC = "com.ta.bibbox.MULTI_ALLOC";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,15 @@ public class MultiAllocableActivity extends BaseActivity  {
 	
 	public void openSummary(View view){
 		Intent intent = new Intent(this, SummaryActivity.class);
+		ListView multiAllocablesList = (ListView) findViewById(R.id.multi_allocable_liste);
+		HashMap<String, Integer> selectedMultiAllocables = new HashMap<String, Integer>();
+		for(int i=0; i<multiAllocablesList.getChildCount(); i++){
+			View v = multiAllocablesList.getChildAt(i);
+			TextView name = (TextView) v.findViewById(R.id.multi_allocable_name);
+			Spinner count = (Spinner) v.findViewById(R.id.multi_allocable_count);
+			selectedMultiAllocables.put(name.getText().toString(), (Integer)count.getSelectedItem());
+		}
+		intent.putExtra(MULTI_ALLOC, selectedMultiAllocables);
 		startActivity(intent);
 	}
 

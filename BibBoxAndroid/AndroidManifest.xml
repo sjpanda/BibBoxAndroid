@@ -33,10 +33,6 @@
             android:label="@string/title_activity_base" >
         </activity>
         <activity
-            android:name="com.ta.bibbox.activity.CancelReservActivity"
-            android:label="@string/title_activity_cancel_reserv" >
-        </activity>
-        <activity
             android:name="com.ta.bibbox.activity.LoginActivity"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >

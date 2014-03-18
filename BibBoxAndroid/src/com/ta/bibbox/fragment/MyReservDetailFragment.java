@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import com.ta.bibbox.converter.DateNTimeConverter;
 import com.ta.bibbox.model.AReservViewModel.ReservDetail;
 import com.ta.bibbox.model.AReservViewModel.ReservList;
 import com.ta.bibbox.model.MyReservsViewModel;
+import com.ta.bibbox.pojo.MultiAllocable;
 import com.ta.bibbox.pojo.Reservation;
 
 /**
@@ -101,12 +103,33 @@ public class MyReservDetailFragment extends Fragment {
 			ReservList l = new ReservList(r.getMonoAllocable().getLocation().getName(), r.getMonoAllocable().getName());
 			header.add(l);
 			List<ReservDetail> ld = new ArrayList<ReservDetail>();
-			ReservDetail d1 = new ReservDetail("Date de début", DateNTimeConverter.dateToTime(r.getBeginDate()));
-			ReservDetail d2 = new ReservDetail("Date de fin", DateNTimeConverter.dateToTime(r.getEndDate()));
-			ReservDetail d3 = new ReservDetail("Nombre de personne", DateNTimeConverter.dateToTime(r.getBeginDate()));
+			ReservDetail d1 = new ReservDetail("Bibliothèque", r.getMonoAllocable().getLocation().getName());
+			ReservDetail d2 = new ReservDetail("Nom de box", r.getMonoAllocable().getName());
+			ReservDetail d3 = new ReservDetail("Date de début", DateNTimeConverter.dateToString(r.getBeginDate()));
+			ReservDetail d4 = new ReservDetail("Date de fin", DateNTimeConverter.dateToString(r.getEndDate()));
+			ReservDetail d5 = new ReservDetail("Nombre de personne", String.valueOf(r.getNbUser()));
 			ld.add(d1);
 			ld.add(d2);
 			ld.add(d3);
+			ld.add(d4);
+			ld.add(d5);
+
+			if(r.getMultiAllocables() != null){
+				Map<String, Integer> multiAllocables = new HashMap<String, Integer>();
+				for(MultiAllocable m : r.getMultiAllocables()){
+					if(multiAllocables.containsKey(m.getName())){
+						multiAllocables.put(m.getName(), multiAllocables.get(m.getName()) + 1);
+					} else {
+						multiAllocables.put(m.getName(), 1);
+					}
+				}
+
+				for(Entry<String, Integer> entry : multiAllocables.entrySet()){
+					ReservDetail d = new ReservDetail(entry.getKey(), String.valueOf(entry.getValue()));
+					ld.add(d);
+				}
+			}
+
 			children.put(l, ld);
 		}
 	}

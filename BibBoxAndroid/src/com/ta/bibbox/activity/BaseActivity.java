@@ -56,9 +56,6 @@ public class BaseActivity extends FragmentActivity {
 		case R.id.action_my_reservs:
 			openView(MyReservListActivity.class);
 			return true;
-		case R.id.action_cancel_reserv:
-			openView(CancelReservActivity.class);
-			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}

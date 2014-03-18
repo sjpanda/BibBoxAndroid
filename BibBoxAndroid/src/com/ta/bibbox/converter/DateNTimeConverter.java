@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 @SuppressLint("SimpleDateFormat")
@@ -21,6 +22,16 @@ public class DateNTimeConverter {
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+	
+	public static String dateToString(Date date){
+		try {
+			DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			return df.format(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "";
 		}
 	}
 

@@ -54,9 +54,12 @@ public class ReservAdapter extends BaseExpandableListAdapter {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = infalInflater.inflate(R.layout.areserv_detail, null);
 		}
-		TextView txtListChild = (TextView) convertView
-				.findViewById(R.id.areserv_detail);
-		txtListChild.setText(child.getName() + " : " + child.getValue());
+		TextView txtDetailName = (TextView) convertView
+				.findViewById(R.id.areserv_detail_name);
+		txtDetailName.setText(child.getName());
+		TextView txtDetailValue = (TextView) convertView
+				.findViewById(R.id.areserv_detail_value);
+		txtDetailValue.setText(child.getValue());
 		return convertView;
 	}
 

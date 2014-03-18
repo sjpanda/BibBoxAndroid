@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.bibboxandroid.R;
-import com.ta.bibbox.adapter.MultiAllocableAdapter;
+import com.ta.bibbox.adapter.SelectMultiAllocableAdapter;
 import com.ta.bibbox.service.ServiceAllocable;
 
 /**
@@ -53,6 +53,14 @@ public class MultiAllocableActivity extends BaseActivity  {
 	
 	public void openSummaryWithoutMultiAllocables(View view){
 		Intent intent = new Intent(this, SummaryActivity.class);
+		ListView multiAllocablesList = (ListView) findViewById(R.id.multi_allocable_liste);
+		HashMap<String, Integer> selectedMultiAllocables = new HashMap<String, Integer>();
+		for(int i=0; i<multiAllocablesList.getChildCount(); i++){
+			View v = multiAllocablesList.getChildAt(i);
+			TextView name = (TextView) v.findViewById(R.id.multi_allocable_name);
+			selectedMultiAllocables.put(name.getText().toString(), 0);
+		}
+		intent.putExtra(MULTI_ALLOC, selectedMultiAllocables);
 		startActivity(intent);
 	}
 	
@@ -111,7 +119,7 @@ public class MultiAllocableActivity extends BaseActivity  {
 						names.add(n);
 					}
 					ListView multiAllocableListe = (ListView)findViewById(R.id.multi_allocable_liste);
-					multiAllocableListe.setAdapter(new MultiAllocableAdapter(context, names, multiAllocables, nbPerson));
+					multiAllocableListe.setAdapter(new SelectMultiAllocableAdapter(context, names, multiAllocables, nbPerson));
 				} else {
 					TextView message = (TextView)findViewById(R.id.message);
 					message.setText("Pas de matériel disponible");

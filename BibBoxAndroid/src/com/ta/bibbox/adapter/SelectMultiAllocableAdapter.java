@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import com.example.bibboxandroid.R;
 
-public class MultiAllocableAdapter extends ArrayAdapter<String> {
+public class SelectMultiAllocableAdapter extends ArrayAdapter<String> {
 	private final Context context;
 	private final List<String> names;
 	private final Map<String, Integer> multiAllocables;
 	private final int nbPerson;
 
-	public MultiAllocableAdapter(Context context, List<String> names, Map<String, Integer> multiAllocables, int nbPerson) {
+	public SelectMultiAllocableAdapter(Context context, List<String> names, Map<String, Integer> multiAllocables, int nbPerson) {
 		super(context, R.layout.amulti_list, names);
 		this.context = context;
 		this.names = names;
@@ -46,7 +46,9 @@ public class MultiAllocableAdapter extends ArrayAdapter<String> {
 			}
 			ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_item, possibleNum);
 			count.setAdapter(adapter);
-		} catch(Exception e){}
+		} catch(Exception e){
+			e.printStackTrace();
+		}
 
 		return rowView;
 	}

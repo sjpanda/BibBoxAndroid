@@ -21,15 +21,19 @@
     <string name="search_mono_beginTime">Horaire de début</string>
     <string name="search_mono_endTime">Horaire de fin</string>
     <string name="search">Rechercher</string>
+    <string name="label_location">Bibliothèque</string>
     <string name="label_num_mono">N° de box</string>
+    <string name="label_name_mono">Nom de box</string>
     <string name="label_nb_place">Nombre de places assises</string>
-    <string name="label_equips">Nombre de places assises</string>
-    <string name="label_descript">Nombre de places assises</string>
+    <string name="label_equips">Équipements</string>
+    <string name="label_descript">Description</string>
     <string name="reserve">Réserver</string>
     <string name="message_select_multi_allocables">Sélection de matériaux</string>
     <string name="no_multi_allocable">Pas de matériel</string>
     <string name="confirm">Confirmation</string>
-
+    <string name="message_summary">Récapitulatif de votre réservation</string>
+    <string name="validate_reserv">Valider la réservation</string>
+    
     <string-array name="country_arrays">
         <item>Malaysia</item>
         <item>United States</item>
@@ -47,6 +51,6 @@
     <string name="title_myreserv_list">Mes réservations</string>
     <string name="title_myreserv_detail">Mes réservations</string>
     <string name="title_activity_multi_allocable">Matériaux</string>
-    <string name="title_activity_summary">SummaryActivity</string>
+    <string name="title_activity_summary">Récapitulatif</string>
 
 </resources>

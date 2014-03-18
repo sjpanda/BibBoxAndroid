@@ -78,21 +78,13 @@ public class MyReservDetailFragment extends Fragment {
 				head.setText("Aucune réservation dans cette catégorie");
 			} else {
 				try{
-					System.out.println("yiyi1");
 					head.setText("");
-					System.out.println("yiyi2");
 					head.setVisibility(View.GONE);
-					System.out.println("yiyi3");
 					dispatchReservations(mItem.getReservs());	
-					System.out.println("yiyi21");
 					ExpandableListView expListView = ((ExpandableListView) rootView.findViewById(R.id.myreserv_detail_list));
-					System.out.println("yiyi22");
 					ReservAdapter adapter = new ReservAdapter(getActivity(), header, children);
-					System.out.println("yiyi23");
 					expListView.setAdapter(adapter);
-					System.out.println("yiyi24");
 				} catch (Exception e){
-					System.out.println("yiyi25");
 					e.printStackTrace();
 				}
 			}
@@ -102,36 +94,20 @@ public class MyReservDetailFragment extends Fragment {
 	}
 
 	private void dispatchReservations(List<Reservation> reservs){
-		System.out.println("yiyi4");
-		if(reservs == null) { System.out.println("yiyi5"); return; }
-		System.out.println("yiyi6");
+		if(reservs == null) { return; }
 		header = new ArrayList<ReservList>();
-		System.out.println("yiyi7");
 		children = new HashMap<ReservList, List<ReservDetail>>();
-		System.out.println("yiyi8");
 		for(Reservation r : reservs){
-			System.out.println("yiyi9");
 			ReservList l = new ReservList(r.getMonoAllocable().getLocation().getName(), r.getMonoAllocable().getName());
-			System.out.println("yiyi10");
 			header.add(l);
-			System.out.println("yiyi11");
 			List<ReservDetail> ld = new ArrayList<ReservDetail>();
-			System.out.println("yiyi12");
 			ReservDetail d1 = new ReservDetail("Date de début", DateNTimeConverter.dateToTime(r.getBeginDate()));
-			System.out.println("yiyi13");
 			ReservDetail d2 = new ReservDetail("Date de fin", DateNTimeConverter.dateToTime(r.getEndDate()));
-			System.out.println("yiyi14");
 			ReservDetail d3 = new ReservDetail("Nombre de personne", DateNTimeConverter.dateToTime(r.getBeginDate()));
-			System.out.println("yiyi15");
 			ld.add(d1);
-			System.out.println("yiyi16");
 			ld.add(d2);
-			System.out.println("yiyi17");
 			ld.add(d3);
-			System.out.println("yiyi18");
 			children.put(l, ld);
-			System.out.println("yiyi19");
 		}
-		System.out.println("yiyi20");
 	}
 }

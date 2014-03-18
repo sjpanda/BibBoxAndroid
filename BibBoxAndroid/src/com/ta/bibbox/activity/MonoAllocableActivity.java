@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -32,6 +33,7 @@ public class MonoAllocableActivity extends BaseActivity {
 	private Map<MonoAllocableList, List<MonoAllocableDetail>> children;
 	
 	public final static String NUM_MONO = "com.ta.bibbox.NUM_MONO";
+	public final static String NAME_MONO = "com.ta.bibbox.NAME_MONO";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +82,6 @@ public class MonoAllocableActivity extends BaseActivity {
 			if((monoAllocables != null) && (monoAllocables.size() > 0)){
 				try{
 					dispatchMonoAllocables(monoAllocables);
-					System.out.println("vivi 1 : " + header.toString());
-					System.out.println("vivi 2 : " + children.toString());
 					MonoAllocableAdapter adapter = new MonoAllocableAdapter(this, header, children);
 					ExpandableListView lvMono = (ExpandableListView) findViewById(R.id.listView_mono);
 					lvMono.setAdapter(adapter);					
@@ -99,8 +99,17 @@ public class MonoAllocableActivity extends BaseActivity {
 	/** Called when the user clicks the Reservation button */
 	public void openSearchMultiAllocables(View view) {
 		TextView tvNumMonoAllocable = (TextView) findViewById(R.id.value_num_mono);
+		TextView tvNameMonoAllocable = (TextView) findViewById(R.id.value_name_mono);
+		TextView tvLocation = (TextView) findViewById(R.id.value_location);
 		int numMonoAllocable = Integer.parseInt(tvNumMonoAllocable.getText().toString());
-		getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE).edit().putInt(NUM_MONO, numMonoAllocable).commit();
+		String nameMonoAllocable = tvNameMonoAllocable.getText().toString();
+		String location = tvLocation.getText().toString();
+		
+		Editor editor = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE).edit();
+		editor.putInt(NUM_MONO, numMonoAllocable);
+		editor.putString(NAME_MONO, nameMonoAllocable);
+		editor.putString(NewReservActivity.LOCATION, location);
+		editor.commit();
 		
 		Intent intent = new Intent(this, MultiAllocableActivity.class);
 		startActivity(intent);
@@ -116,6 +125,8 @@ public class MonoAllocableActivity extends BaseActivity {
 			List<MonoAllocableDetail> ld = new ArrayList<MonoAllocableDetail>();
 			MonoAllocableDetail d = new MonoAllocableDetail(
 							String.valueOf(m.getId()), 
+							m.getName(),
+							m.getLocation().getName(),
 							String.valueOf(((BoxType)m.getType()).getNbSeat()),
 							ScreenConverter.instance().convertToString(((BoxType)m.getType()).getScreen()),
 							m.getDescription());

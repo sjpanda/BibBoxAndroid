@@ -21,7 +21,7 @@ public class CollectionConverter {
 		return result;
 	}
 	
-	public String mapStringIntToCustomString(Map<String, Integer> keyValues, String name){
+	public String mapStringIntToCustomString(Map<String, Integer> keyValues){
 		StringBuffer s = new StringBuffer();
 		for(Entry<String, Integer> entry : keyValues.entrySet()){
 			s.append(entry.getKey() + ":" + entry.getValue() + ";");

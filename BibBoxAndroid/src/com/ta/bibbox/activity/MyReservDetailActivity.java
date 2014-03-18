@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.fragment.MyReservDetailFragment;
@@ -54,8 +55,6 @@ public class MyReservDetailActivity extends BaseActivity {
 	@Override
 	public void onResume() {
 	    super.onResume();  // Always call the superclass method first
-
-
 	}
 
 	@Override

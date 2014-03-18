@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.bibboxandroid.R;
+import com.ta.bibbox.fragment.MyReservDetailFragment;
 import com.ta.bibbox.model.AReservViewModel;
 import com.ta.bibbox.model.AReservViewModel.ReservDetail;
 import com.ta.bibbox.model.AReservViewModel.ReservList;
@@ -22,12 +24,12 @@ import com.ta.bibbox.model.AReservViewModel.ReservList;
  * @copyright TA Copyright
  * @brief L'adaptateur personalisé pour ExpandableListView des réservations
  */
-public class ReservAdapter extends BaseExpandableListAdapter {
+public class ReservDetailAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	private List<ReservList> listDataHeader; 
 	private Map<ReservList, List<ReservDetail>> listDataChild;
 
-	public ReservAdapter(Context context, List<ReservList> listDataHeader, 
+	public ReservDetailAdapter(Context context, List<ReservList> listDataHeader, 
 			Map<ReservList, List<ReservDetail>> listDataChild){
 		this.context = context;
 		this.listDataHeader = listDataHeader;
@@ -54,12 +56,35 @@ public class ReservAdapter extends BaseExpandableListAdapter {
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = infalInflater.inflate(R.layout.areserv_detail, null);
 		}
+
 		TextView txtDetailName = (TextView) convertView
 				.findViewById(R.id.areserv_detail_name);
-		txtDetailName.setText(child.getName());
 		TextView txtDetailValue = (TextView) convertView
 				.findViewById(R.id.areserv_detail_value);
-		txtDetailValue.setText(child.getValue());
+		Button cancelBtn = (Button) convertView
+				.findViewById(R.id.btn_cancel_reserv);
+
+		if(child.getName().equalsIgnoreCase(MyReservDetailFragment.ID_RESERV)){
+			txtDetailName.setVisibility(View.GONE);
+			txtDetailValue.setVisibility(View.GONE);
+			cancelBtn.setVisibility(View.GONE);
+			TextView txtDetailId = (TextView) convertView
+					.findViewById(R.id.areserv_detail_id);
+			txtDetailId.setText(child.getValue());
+		} else {
+			if(child.getName().equalsIgnoreCase(MyReservDetailFragment.CANCEL_BTN)){
+				txtDetailName.setVisibility(View.GONE);
+				txtDetailValue.setVisibility(View.GONE);
+				cancelBtn.setVisibility(View.VISIBLE);
+			} else {
+				cancelBtn.setVisibility(View.GONE);
+				txtDetailName.setText(child.getName());
+				txtDetailValue.setText(child.getValue());
+				txtDetailName.setVisibility(View.VISIBLE);
+				txtDetailValue.setVisibility(View.VISIBLE);
+			}
+		}
+
 		return convertView;
 	}
 

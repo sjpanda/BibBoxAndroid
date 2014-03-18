@@ -13,15 +13,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
-import com.ta.bibbox.activity.MultiAllocableActivity.GetMultiAllocablesTask;
-import com.ta.bibbox.adapter.SelectMultiAllocableAdapter;
 import com.ta.bibbox.adapter.SummaryMultiAllocableAdapter;
 import com.ta.bibbox.converter.CollectionConverter;
-import com.ta.bibbox.service.ServiceAllocable;
 import com.ta.bibbox.service.ServiceReservation;
 
 /**

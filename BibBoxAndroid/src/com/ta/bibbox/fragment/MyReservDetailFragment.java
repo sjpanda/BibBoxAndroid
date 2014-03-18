@@ -17,13 +17,14 @@ import android.widget.TextView;
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.activity.MyReservDetailActivity;
 import com.ta.bibbox.activity.MyReservListActivity;
-import com.ta.bibbox.adapter.ReservAdapter;
+import com.ta.bibbox.adapter.ReservDetailAdapter;
 import com.ta.bibbox.converter.DateNTimeConverter;
 import com.ta.bibbox.model.AReservViewModel.ReservDetail;
 import com.ta.bibbox.model.AReservViewModel.ReservList;
 import com.ta.bibbox.model.MyReservsViewModel;
 import com.ta.bibbox.pojo.MultiAllocable;
 import com.ta.bibbox.pojo.Reservation;
+import com.ta.bibbox.pojo.ReservationState;
 
 /**
  * @author Jing SHU
@@ -38,6 +39,8 @@ public class MyReservDetailFragment extends Fragment {
 	 * represents.
 	 */
 	public static final String ARG_ITEM_ID = "item_id";
+	public static final String ID_RESERV = "ID_RESERV";
+	public static final String CANCEL_BTN = "CANCEL_BTN";
 
 	/**
 	 * The content this fragment is presenting.
@@ -84,7 +87,7 @@ public class MyReservDetailFragment extends Fragment {
 					head.setVisibility(View.GONE);
 					dispatchReservations(mItem.getReservs());	
 					ExpandableListView expListView = ((ExpandableListView) rootView.findViewById(R.id.myreserv_detail_list));
-					ReservAdapter adapter = new ReservAdapter(getActivity(), header, children);
+					ReservDetailAdapter adapter = new ReservDetailAdapter(getActivity(), header, children);
 					expListView.setAdapter(adapter);
 				} catch (Exception e){
 					e.printStackTrace();
@@ -102,17 +105,20 @@ public class MyReservDetailFragment extends Fragment {
 		for(Reservation r : reservs){
 			ReservList l = new ReservList(r.getMonoAllocable().getLocation().getName(), r.getMonoAllocable().getName());
 			header.add(l);
+
 			List<ReservDetail> ld = new ArrayList<ReservDetail>();
-			ReservDetail d1 = new ReservDetail("Bibliothèque", r.getMonoAllocable().getLocation().getName());
-			ReservDetail d2 = new ReservDetail("Nom de box", r.getMonoAllocable().getName());
-			ReservDetail d3 = new ReservDetail("Date de début", DateNTimeConverter.dateToString(r.getBeginDate()));
-			ReservDetail d4 = new ReservDetail("Date de fin", DateNTimeConverter.dateToString(r.getEndDate()));
-			ReservDetail d5 = new ReservDetail("Nombre de personne", String.valueOf(r.getNbUser()));
-			ld.add(d1);
-			ld.add(d2);
-			ld.add(d3);
-			ld.add(d4);
-			ld.add(d5);
+			ReservDetail idReserv = new ReservDetail(ID_RESERV, String.valueOf(r.getId()));
+			ReservDetail location = new ReservDetail("Bibliothèque", r.getMonoAllocable().getLocation().getName());
+			ReservDetail nameMonoAlloc = new ReservDetail("Nom de box", r.getMonoAllocable().getName());
+			ReservDetail beginDate = new ReservDetail("Date de début", DateNTimeConverter.dateToString(r.getBeginDate()));
+			ReservDetail endDate = new ReservDetail("Date de fin", DateNTimeConverter.dateToString(r.getEndDate()));
+			ReservDetail nbPerson = new ReservDetail("Nombre de personne", String.valueOf(r.getNbUser()));
+			ld.add(idReserv);
+			ld.add(location);
+			ld.add(nameMonoAlloc);
+			ld.add(beginDate);
+			ld.add(endDate);
+			ld.add(nbPerson);
 
 			if(r.getMultiAllocables() != null){
 				Map<String, Integer> multiAllocables = new HashMap<String, Integer>();
@@ -125,9 +131,14 @@ public class MyReservDetailFragment extends Fragment {
 				}
 
 				for(Entry<String, Integer> entry : multiAllocables.entrySet()){
-					ReservDetail d = new ReservDetail(entry.getKey(), String.valueOf(entry.getValue()));
-					ld.add(d);
+					ReservDetail multiAlloc = new ReservDetail(entry.getKey(), String.valueOf(entry.getValue()));
+					ld.add(multiAlloc);
 				}
+			}
+
+			if(r.getState() == ReservationState.Waiting){
+				ReservDetail toDisplayACancelButton = new ReservDetail(CANCEL_BTN, "");
+				ld.add(toDisplayACancelButton);
 			}
 
 			children.put(l, ld);

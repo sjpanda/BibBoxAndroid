@@ -5,7 +5,6 @@
     <string name="action_settings">Réglage</string>
     <string name="action_new_reserv">Nouvelle Réservation</string>
     <string name="action_my_reservs">Mes Réservations</string>
-    <string name="action_cancel_reserv">Annuler une réservation</string>
     <string name="action_login">Connexion</string>
     <string name="action_logout">Déconnexion</string>
     <string name="hello_world">Hello world!</string>
@@ -33,6 +32,7 @@
     <string name="confirm">Confirmation</string>
     <string name="message_summary">Récapitulatif de votre réservation</string>
     <string name="validate_reserv">Valider la réservation</string>
+    <string name="cancel">Annuler</string>
     
     <string-array name="country_arrays">
         <item>Malaysia</item>

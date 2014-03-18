@@ -2,15 +2,21 @@ package com.ta.bibbox.activity;
 
 import java.util.List;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.fragment.MyReservDetailFragment;
 import com.ta.bibbox.fragment.MyReservListFragment;
 import com.ta.bibbox.model.MyReservsViewModel;
 import com.ta.bibbox.pojo.Reservation;
+import com.ta.bibbox.pojo.ReservationState;
 import com.ta.bibbox.service.ServiceReservation;
 
 /**
@@ -32,7 +38,7 @@ import com.ta.bibbox.service.ServiceReservation;
  * selections.
  */
 public class MyReservListActivity extends BaseActivity implements
-		MyReservListFragment.Callbacks {
+MyReservListFragment.Callbacks {
 
 	/**
 	 * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -43,7 +49,7 @@ public class MyReservListActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		setContentView(R.layout.activity_myreserv_list);
 
 		if (findViewById(R.id.myreserv_detail_container) != null) {
@@ -60,12 +66,12 @@ public class MyReservListActivity extends BaseActivity implements
 					.setActivateOnItemClick(true);
 		}
 	}
-	
+
 	@Override
 	public void onResume() {
-	    super.onResume();  // Always call the superclass method first
+		super.onResume();  // Always call the superclass method first
 
-	    SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
+		SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
 		String login = pref.getString(LoginActivity.Login, null);
 		if(login == null){
 			Intent intent = new Intent(this, LoginActivity.class);
@@ -75,6 +81,11 @@ public class MyReservListActivity extends BaseActivity implements
 			List<Reservation> reservations = reserv.GetAllReservationsByUser(login);
 			MyReservsViewModel.addItems(reservations);
 		}
+	}
+
+	public void cancelReservation(View view){
+		CancelReservTask task = new CancelReservTask(this);
+		task.execute((Void) null);
 	}
 
 	/**
@@ -92,7 +103,7 @@ public class MyReservListActivity extends BaseActivity implements
 			MyReservDetailFragment fragment = new MyReservDetailFragment();
 			fragment.setArguments(arguments);
 			getSupportFragmentManager().beginTransaction()
-					.replace(R.id.myreserv_detail_container, fragment).commit();
+			.replace(R.id.myreserv_detail_container, fragment).commit();
 
 		} else {
 			// In single-pane mode, simply start the detail activity
@@ -100,6 +111,39 @@ public class MyReservListActivity extends BaseActivity implements
 			Intent detailIntent = new Intent(this, MyReservDetailActivity.class);
 			detailIntent.putExtra(MyReservDetailFragment.ARG_ITEM_ID, id);
 			startActivity(detailIntent);
+		}
+	}
+	
+	public class CancelReservTask extends AsyncTask<Void, Void, Boolean> {	
+		Context context;
+		
+		public CancelReservTask(Context context){
+			this.context = context;
+		}
+		
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			try {
+				TextView tvIdReserv = (TextView)findViewById(R.id.areserv_detail_id);
+				int idReserv = Integer.parseInt(tvIdReserv.getText().toString());
+				
+				ServiceReservation reserv = new ServiceReservation();
+				Reservation canceledReserv = reserv.TerminateReservationString(idReserv, ReservationState.Canceled);
+				return (canceledReserv != null);
+			} catch (Exception e) {
+				return false;
+			}
+		}
+
+		@Override
+		protected void onPostExecute(final Boolean success) {
+			if (success) {
+				Toast.makeText(context, "Votre réservation est bien annulée", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(context, MyReservListActivity.class);
+				context.startActivity(intent);
+			} else {
+				Toast.makeText(context, "Erreur : votre réservation n'est pas annulée", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 }

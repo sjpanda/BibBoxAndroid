@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.converter.DateNTimeConverter;
 import com.ta.bibbox.service.ServiceAllocable;
+import com.ta.bibbox.service.ServicePenalty;
 import com.ta.bibbox.service.ServiceSystemParameter;
 
 /**
@@ -36,7 +37,7 @@ public class NewReservActivity extends BaseActivity {
 	public final static String BEGIN_TIME = "com.ta.bibbox.BEGIN_TIME";
 	public final static String END_TIME = "com.ta.bibbox.END_TIME";
 	public final static long ONE_MINUTE_MILLIS = 60 * 1000;
-	
+
 	TextView tv;
 
 	@Override
@@ -47,7 +48,7 @@ public class NewReservActivity extends BaseActivity {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy);
 		}
-		
+
 		/* DO NOT DELETE  */
 		//		tv = new TextView(this);
 		//		Toast.makeText(this.getApplicationContext(),"Hello ! XDDDDDDDDDDDD", Toast.LENGTH_LONG).show();
@@ -56,73 +57,80 @@ public class NewReservActivity extends BaseActivity {
 		//		setContentView(tv);
 		/* END */
 	}
-	
+
 	@Override
 	public void onResume() {
-	    super.onResume();  // Always call the superclass method first
+		super.onResume();  // Always call the superclass method first
 
-	    SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
+		SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
 		String login = pref.getString(LoginActivity.Login, null);
 		if(login == null){
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		} else {
-			setContentView(R.layout.activity_main);
-			try{
-				fillSpinners();
-			} catch (Exception e){
-				e.printStackTrace();
+			ServicePenalty penalty = new ServicePenalty();
+			if(penalty.hasPenalty(login)){
+				Toast.makeText(this, "Vous ne pouvez pas réserver à cause de la pénalité", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(this, MyReservListActivity.class);
+				startActivity(intent);
+			} else {
+				setContentView(R.layout.activity_main);
+				try{
+					fillSpinners();
+				} catch (Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
 	}
-	
+
 	/** Called when the user clicks the Search button */
 	public void openSearchMonoAllocables(View view) {
 		try{
-		Spinner spnBeginTime = (Spinner) findViewById(R.id.spinner_beginTime);
-	    Spinner spnEndTime = (Spinner) findViewById(R.id.spinner_endTime);
-		String beginTime = spnBeginTime.getSelectedItem().toString();
-	    String endTime = spnEndTime.getSelectedItem().toString();
-		Date theBeginTime = DateNTimeConverter.stringToTime(beginTime);
-		Date theEndTime = DateNTimeConverter.stringToTime(endTime);
-		if(! theBeginTime.before(theEndTime)){
-			Toast.makeText(this.getApplicationContext(),"L'heure de début doit être plus tôt que l'heure de fin", Toast.LENGTH_LONG).show();
-			return;
-		}
-		
-		DatePicker dpDate = (DatePicker) findViewById(R.id.dp_date);
-		String date = dpDate.getYear() + "-" + (dpDate.getMonth() + 1) + "-" + dpDate.getDayOfMonth() + " 00:00:00";
-		Date theDate = DateNTimeConverter.stringToDate(date);
-		Date theBeginDateTime = new Date(theDate.getTime() + theBeginTime.getTime() + 61*60*1000);
-		if(theBeginDateTime.before(new Date())){
-			Toast.makeText(this.getApplicationContext(),"L'heure de début doit être plus tard que maintenant", Toast.LENGTH_LONG).show();
-			return;
-		}
-		
-		Intent intent = new Intent(this, MonoAllocableActivity.class);
-	    Spinner spnNbPerson = (Spinner) findViewById(R.id.spinner_nbPerson);
-	    Spinner spnEquips = (Spinner) findViewById(R.id.spinner_equips);
-	    Spinner spnLocation = (Spinner) findViewById(R.id.spinner_location);
-	    
-	    int nbPerson = (Integer)spnNbPerson.getSelectedItem();
-	    String equip = spnEquips.getSelectedItem().toString();
-	    String location = spnLocation.getSelectedItem().toString();
-	    
-	    Editor editor = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE).edit();
-	    editor.putInt(NB_PERSON, nbPerson);
-	    editor.putString(EQUIP, equip);
-	    editor.putString(LOCATION, location);
-	    editor.putString(DATE, date);
-	    editor.putString(BEGIN_TIME, beginTime);
-	    editor.putString(END_TIME, endTime);
-	    editor.commit();
-		
-		startActivity(intent);
+			Spinner spnBeginTime = (Spinner) findViewById(R.id.spinner_beginTime);
+			Spinner spnEndTime = (Spinner) findViewById(R.id.spinner_endTime);
+			String beginTime = spnBeginTime.getSelectedItem().toString();
+			String endTime = spnEndTime.getSelectedItem().toString();
+			Date theBeginTime = DateNTimeConverter.stringToTime(beginTime);
+			Date theEndTime = DateNTimeConverter.stringToTime(endTime);
+			if(! theBeginTime.before(theEndTime)){
+				Toast.makeText(this.getApplicationContext(),"L'heure de début doit être plus tôt que l'heure de fin", Toast.LENGTH_LONG).show();
+				return;
+			}
+
+			DatePicker dpDate = (DatePicker) findViewById(R.id.dp_date);
+			String date = dpDate.getYear() + "-" + (dpDate.getMonth() + 1) + "-" + dpDate.getDayOfMonth() + " 00:00:00";
+			Date theDate = DateNTimeConverter.stringToDate(date);
+			Date theBeginDateTime = new Date(theDate.getTime() + theBeginTime.getTime() + 61*60*1000);
+			if(theBeginDateTime.before(new Date())){
+				Toast.makeText(this.getApplicationContext(),"L'heure de début doit être plus tard que maintenant", Toast.LENGTH_LONG).show();
+				return;
+			}
+
+			Intent intent = new Intent(this, MonoAllocableActivity.class);
+			Spinner spnNbPerson = (Spinner) findViewById(R.id.spinner_nbPerson);
+			Spinner spnEquips = (Spinner) findViewById(R.id.spinner_equips);
+			Spinner spnLocation = (Spinner) findViewById(R.id.spinner_location);
+
+			int nbPerson = (Integer)spnNbPerson.getSelectedItem();
+			String equip = spnEquips.getSelectedItem().toString();
+			String location = spnLocation.getSelectedItem().toString();
+
+			Editor editor = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE).edit();
+			editor.putInt(NB_PERSON, nbPerson);
+			editor.putString(EQUIP, equip);
+			editor.putString(LOCATION, location);
+			editor.putString(DATE, date);
+			editor.putString(BEGIN_TIME, beginTime);
+			editor.putString(END_TIME, endTime);
+			editor.commit();
+
+			startActivity(intent);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void fillSpinners(){
 		ServiceAllocable alloc = new ServiceAllocable();
 		ServiceSystemParameter sysParam = new ServiceSystemParameter();
@@ -130,36 +138,36 @@ public class NewReservActivity extends BaseActivity {
 		List<Integer> possibleNbSeat = alloc.GetMonoAllocablePossibleNbSeat();
 		ManageSpinner<Integer> msInteger = new ManageSpinner<Integer>();
 		msInteger.manageSpinner(this, fillList(possibleNbSeat), R.id.spinner_nbPerson);
-		
+
 		List<String> equips = new ArrayList<String>();
 		equips.add("Indifferent");
 		equips.addAll(alloc.GetMonoAllocableEquips());
 		ManageSpinner<String> msString = new ManageSpinner<String>();
 		msString.manageSpinner(this, equips, R.id.spinner_equips);
-		
+
 		List<String> locations = new ArrayList<String>();
 		locations.add("Indifferent");
 		locations.addAll(alloc.GetAllLocations());
 		msString.manageSpinner(this, locations, R.id.spinner_location);
-		
+
 		int maxReservDays = sysParam.GetMaxReservDays();
 		initDate(maxReservDays);
-		
+
 		int quantum = sysParam.GetReservationMinInterval();
 		if(quantum < 0){
 			// 30 min
 			quantum = 30;
 		}
-        Date beginTime = alloc.GetBeginReservTime();
-        Date endTime = alloc.GetEndReservTime();
-        
-        List<String> beginTimes = reservTimes(beginTime, endTime, quantum, true);
-        msString.manageSpinner(this, beginTimes, R.id.spinner_beginTime);
-        
-        List<String> endTimes = reservTimes(beginTime, endTime, quantum, false);
-        msString.manageSpinner(this, endTimes, R.id.spinner_endTime);
+		Date beginTime = alloc.GetBeginReservTime();
+		Date endTime = alloc.GetEndReservTime();
+
+		List<String> beginTimes = reservTimes(beginTime, endTime, quantum, true);
+		msString.manageSpinner(this, beginTimes, R.id.spinner_beginTime);
+
+		List<String> endTimes = reservTimes(beginTime, endTime, quantum, false);
+		msString.manageSpinner(this, endTimes, R.id.spinner_endTime);
 	}
-	
+
 	private List<Integer> fillList(List<Integer> list){
 		List<Integer> result = new ArrayList<Integer>();
 		if((list != null) && (! list.isEmpty())){
@@ -176,7 +184,7 @@ public class NewReservActivity extends BaseActivity {
 		}
 		return result;
 	}
-	
+
 	private void initDate(int maxReservDays){
 		DatePicker dpDate = (DatePicker) findViewById(R.id.dp_date);
 		dpDate.setCalendarViewShown(false);
@@ -187,7 +195,7 @@ public class NewReservActivity extends BaseActivity {
 			dpDate.setMaxDate((new Date((new Date()).getTime() + maxReservDays * 24 * 60 * ONE_MINUTE_MILLIS)).getTime());
 		}
 	}
-	
+
 	private List<String> reservTimes(Date beginTime, Date endTime, int quantum, boolean begin){
 		List<String> result = new ArrayList<String>();
 		if(begin){
@@ -204,7 +212,7 @@ public class NewReservActivity extends BaseActivity {
 		}
 		return result;
 	}
-	
+
 	private class ManageSpinner<T>{
 		public void manageSpinner(Context context, List<T> contents, int spinnerId){
 			ArrayAdapter<T> adapter = new ArrayAdapter<T>(context, android.R.layout.simple_spinner_item, contents);

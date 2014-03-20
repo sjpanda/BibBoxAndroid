@@ -32,6 +32,7 @@
     <string name="message_summary">Récapitulatif de votre réservation</string>
     <string name="validate_reserv">Valider la réservation</string>
     <string name="cancel">Annuler</string>
+    <string name="launch_search_teacher">Aucun résultat. Cliquer ici pour prendre un box réservé par des étiduants</string>
 
     <string-array name="country_arrays">
         <item>Malaysia</item>
@@ -53,5 +54,7 @@
     <string name="title_activity_multi_allocable">Matériaux</string>
     <string name="title_activity_summary">Récapitulatif</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_mono_allocable_teacher">MonoAllocableTeacherActivity</string>
+
 
 </resources>

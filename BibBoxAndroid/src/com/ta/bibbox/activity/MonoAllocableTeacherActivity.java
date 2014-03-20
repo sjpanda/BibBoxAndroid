@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,26 +21,16 @@ import com.ta.bibbox.model.AMonoAllocableViewModel.MonoAllocableDetail;
 import com.ta.bibbox.model.AMonoAllocableViewModel.MonoAllocableList;
 import com.ta.bibbox.pojo.BoxType;
 import com.ta.bibbox.pojo.MonoAllocable;
-import com.ta.bibbox.pojo.UserRole;
 import com.ta.bibbox.service.ServiceAllocable;
 
-/**
- * @author Jing SHU
- * @date 12/03/2014
- * @copyright TA Copyright
- * @brief La page contenant le résultat de recherche des mono-allouables
- */
-public class MonoAllocableActivity extends BaseActivity {
+public class MonoAllocableTeacherActivity extends BaseActivity {
 	private List<MonoAllocableList> header;
 	private Map<MonoAllocableList, List<MonoAllocableDetail>> children;
-
-	public final static String NUM_MONO = "com.ta.bibbox.NUM_MONO";
-	public final static String NAME_MONO = "com.ta.bibbox.NAME_MONO";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_mono_allocable);
+		setContentView(R.layout.activity_mono_allocable_teacher);
 	}
 
 	@Override
@@ -62,14 +51,10 @@ public class MonoAllocableActivity extends BaseActivity {
 			String endTime = pref.getString(NewReservActivity.END_TIME, null);
 
 			ServiceAllocable alloc = new ServiceAllocable();
-			List<MonoAllocable> monoAllocables = alloc.SearchMonoAllocables(nbPerson, equip, location, date, beginTime, endTime);
-			Button launcheSearchForTeacher = (Button) findViewById(R.id.launch_search_teacher);
+			List<MonoAllocable> monoAllocables = alloc.SearchMonoAllocablesForTeacher(nbPerson, equip, location, date, beginTime, endTime);
 			ExpandableListView lvMono = (ExpandableListView) findViewById(R.id.listView_mono);
 			if((monoAllocables != null) && (monoAllocables.size() > 0)){
 				try{
-					launcheSearchForTeacher.setVisibility(View.GONE);
-					lvMono.setVelocityScale(View.VISIBLE);
-
 					dispatchMonoAllocables(monoAllocables);
 					MonoAllocableAdapter adapter = new MonoAllocableAdapter(this, header, children);
 					lvMono.setAdapter(adapter);					
@@ -77,17 +62,9 @@ public class MonoAllocableActivity extends BaseActivity {
 					e.printStackTrace();
 				}
 			} else {
-				String role = pref.getString(LoginActivity.Role, null);
-				if(role.equalsIgnoreCase(UserRole.Teacher.toString())){
-					launcheSearchForTeacher.setVisibility(View.VISIBLE);
-					lvMono.setVelocityScale(View.GONE);
-				} else {
-					Toast.makeText(this, "Ancun résultat", Toast.LENGTH_LONG).show();
-					launcheSearchForTeacher.setVisibility(View.GONE);
-					lvMono.setVelocityScale(View.GONE);
-					Intent intent = new Intent(this, NewReservActivity.class);
-					startActivity(intent);
-				}
+				Toast.makeText(this, "Ancun résultat", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(this, NewReservActivity.class);
+				startActivity(intent);
 			}
 		}
 	}
@@ -102,40 +79,13 @@ public class MonoAllocableActivity extends BaseActivity {
 		String location = tvLocation.getText().toString();
 
 		Editor editor = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE).edit();
-		editor.putInt(NUM_MONO, numMonoAllocable);
-		editor.putString(NAME_MONO, nameMonoAllocable);
+		editor.putInt(MonoAllocableActivity.NUM_MONO, numMonoAllocable);
+		editor.putString(MonoAllocableActivity.NAME_MONO, nameMonoAllocable);
 		editor.putString(NewReservActivity.LOCATION, location);
 		editor.commit();
 
 		Intent intent = new Intent(this, MultiAllocableActivity.class);
 		startActivity(intent);
-	}
-
-	public void openSearchForTeacher(View view){
-		Intent intent = new Intent(this, MonoAllocableTeacherActivity.class);
-		startActivity(intent);
-		
-//		Button launcheSearchForTeacher = (Button) findViewById(R.id.launch_search_teacher);
-//		launcheSearchForTeacher.setVisibility(View.GONE);
-//
-//		List<MonoAllocable> monoAllocables = searchMonoAllocables(true);
-//		ExpandableListView lvMono = (ExpandableListView) findViewById(R.id.listView_mono);
-//		if((monoAllocables != null) && (monoAllocables.size() > 0)){
-//			try{
-//				lvMono.setVelocityScale(View.VISIBLE);
-//				dispatchMonoAllocables(monoAllocables);
-//				MonoAllocableAdapter adapter = new MonoAllocableAdapter(this, header, children);
-//				lvMono.setAdapter(adapter);					
-//			} catch (Exception e){
-//				e.printStackTrace();
-//			}
-//		} else {
-//			Toast.makeText(this, "Ancun résultat", Toast.LENGTH_LONG).show();
-//			launcheSearchForTeacher.setVisibility(View.GONE);
-//			lvMono.setVelocityScale(View.GONE);
-//			Intent intent = new Intent(this, NewReservActivity.class);
-//			startActivity(intent);
-//		}
 	}
 
 	private void dispatchMonoAllocables(List<MonoAllocable> monoAllocables){

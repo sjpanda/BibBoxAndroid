@@ -71,8 +71,6 @@ public class NewReservActivity extends BaseActivity {
 			startActivity(intent);
 		} else {
 			String role = pref.getString(LoginActivity.Role, null);
-			System.out.println("role : " + role);
-			System.out.println("user role : " + UserRole.Basic.toString());
 			if((! role.equalsIgnoreCase(UserRole.Basic.toString()))
 					&& (! role.equalsIgnoreCase(UserRole.Teacher.toString()))){
 				Toast.makeText(this, "Vous n'avez pas accès à cette fonctionnalité", Toast.LENGTH_LONG).show();

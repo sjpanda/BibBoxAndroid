@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.converter.DateNTimeConverter;
+import com.ta.bibbox.pojo.UserRole;
 import com.ta.bibbox.service.ServiceAllocable;
 import com.ta.bibbox.service.ServicePenalty;
 import com.ta.bibbox.service.ServiceSystemParameter;
@@ -43,6 +44,7 @@ public class NewReservActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_new_reserv);
 
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -68,13 +70,23 @@ public class NewReservActivity extends BaseActivity {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		} else {
+			String role = pref.getString(LoginActivity.Role, null);
+			System.out.println("role : " + role);
+			System.out.println("user role : " + UserRole.Basic.toString());
+			if((! role.equalsIgnoreCase(UserRole.Basic.toString()))
+					&& (! role.equalsIgnoreCase(UserRole.Teacher.toString()))){
+				Toast.makeText(this, "Vous n'avez pas accès à cette fonctionnalité", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);
+				return;
+			}
+			
 			ServicePenalty penalty = new ServicePenalty();
 			if(penalty.hasPenalty(login)){
 				Toast.makeText(this, "Vous ne pouvez pas réserver à cause de la pénalité", Toast.LENGTH_LONG).show();
 				Intent intent = new Intent(this, MyReservListActivity.class);
 				startActivity(intent);
 			} else {
-				setContentView(R.layout.activity_main);
 				try{
 					fillSpinners();
 				} catch (Exception e){

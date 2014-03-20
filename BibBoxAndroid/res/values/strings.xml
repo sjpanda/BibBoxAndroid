@@ -8,7 +8,6 @@
     <string name="action_login">Connexion</string>
     <string name="action_logout">Déconnexion</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_login">Connexion</string>
     <string name="edit_login">Identifiant</string>
     <string name="edit_password">Mot de passe</string>
     <string name="btn_login">Se connecter</string>
@@ -33,7 +32,7 @@
     <string name="message_summary">Récapitulatif de votre réservation</string>
     <string name="validate_reserv">Valider la réservation</string>
     <string name="cancel">Annuler</string>
-    
+
     <string-array name="country_arrays">
         <item>Malaysia</item>
         <item>United States</item>
@@ -45,11 +44,14 @@
         <item>India</item>
     </string-array>
 
+    <string name="title_activity_login">Connexion</string>
+    <string name="title_newreserv">Nouvelle réservation</string>
     <string name="title_activity_mono_allocable">Résultats de recherche</string>
     <string name="title_activity_base"></string>
     <string name="title_myreserv_list">Mes réservations</string>
     <string name="title_myreserv_detail">Mes réservations</string>
     <string name="title_activity_multi_allocable">Matériaux</string>
     <string name="title_activity_summary">Récapitulatif</string>
+    <string name="title_activity_main">MainActivity</string>
 
 </resources>

@@ -17,6 +17,7 @@ import com.ta.bibbox.fragment.MyReservListFragment;
 import com.ta.bibbox.model.MyReservsViewModel;
 import com.ta.bibbox.pojo.Reservation;
 import com.ta.bibbox.pojo.ReservationState;
+import com.ta.bibbox.pojo.UserRole;
 import com.ta.bibbox.service.ServiceReservation;
 
 /**
@@ -77,6 +78,15 @@ MyReservListFragment.Callbacks {
 			Intent intent = new Intent(this, LoginActivity.class);
 			startActivity(intent);
 		} else {
+			String role = pref.getString(LoginActivity.Role, null);
+			if((! role.equalsIgnoreCase(UserRole.Basic.toString()))
+					&& (! role.equalsIgnoreCase(UserRole.Teacher.toString()))){
+				Toast.makeText(this, "Vous n'avez pas accès à cette fonctionnalité", Toast.LENGTH_LONG).show();
+				Intent intent = new Intent(this, MainActivity.class);
+				startActivity(intent);
+				return;
+			}
+			
 			ServiceReservation reserv = new ServiceReservation();
 			List<Reservation> reservations = reserv.GetAllReservationsByUser(login);
 			MyReservsViewModel.addItems(reservations);

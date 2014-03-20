@@ -3,6 +3,7 @@ package com.ta.bibbox.activity;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import com.ta.bibbox.service.ServiceAuthentification;
  */
 public class LoginActivity extends BaseActivity {
 	public static final String Login = "com.ta.bibbox.Login";
+	public static final String Role = "com.ta.bibbox.Role";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -44,6 +46,8 @@ public class LoginActivity extends BaseActivity {
 	private View mLoginFormView;
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
+	
+	private User u;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,7 +186,7 @@ public class LoginActivity extends BaseActivity {
 		protected Boolean doInBackground(Void... params) {
 			try {
 				ServiceAuthentification auth = new ServiceAuthentification();
-				User u = auth.login(mLogin, mPassword);
+				u = auth.login(mLogin, mPassword);
 				return (u != null);
 			} catch (Exception e) {
 				return false;
@@ -195,12 +199,16 @@ public class LoginActivity extends BaseActivity {
 			showProgress(false);
 
 			if (success) {
-				getSharedPreferences(PREFS_NAME,MODE_PRIVATE).edit()
-					.putString(Login, mLogin).commit();
+				Editor editor = getSharedPreferences(PREFS_NAME,MODE_PRIVATE).edit();
+				editor.putString(Login, mLogin);
+				editor.putString(Role, u.getRole().toString());
+				editor.commit();
 				finish();
 			} else {
-				getSharedPreferences(PREFS_NAME,MODE_PRIVATE).edit()
-		        	.putString(Login, null).commit();
+				Editor editor = getSharedPreferences(PREFS_NAME,MODE_PRIVATE).edit();
+				editor.putString(Login, null);
+				editor.putString(Role, null);
+				editor.commit();
 				mPasswordView
 				.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();

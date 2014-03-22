@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity {
 		// Store values at the time of the login attempt.
 		mLogin = mLoginView.getText().toString();
 		try {
-			mPassword = (new AESUtil()).encrypt(mPasswordView.getText().toString());
+			mPassword = (new AESUtil()).encrypt(mPasswordView.getText().toString()).trim();
 		} catch (Exception e) {
 			mPassword = "";
 			e.printStackTrace();

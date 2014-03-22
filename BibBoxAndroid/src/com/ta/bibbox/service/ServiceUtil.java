@@ -43,7 +43,6 @@ public class ServiceUtil {
 			System.out.println("tata9");
 			androidHttpTransport.call(SOAP_ACTION, envelope);
 			System.out.println("tata10");
-			
 			System.out.println("tata10 bis : " + envelope.getResponse().toString());
 			return envelope.getResponse();
 		} catch (Exception e) {

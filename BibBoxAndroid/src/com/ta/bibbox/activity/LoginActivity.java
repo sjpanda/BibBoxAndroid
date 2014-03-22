@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.bibboxandroid.R;
 import com.ta.bibbox.pojo.User;
+import com.ta.bibbox.security.AESUtil;
 import com.ta.bibbox.service.ServiceAuthentification;
 
 /**
@@ -103,7 +104,12 @@ public class LoginActivity extends BaseActivity {
 
 		// Store values at the time of the login attempt.
 		mLogin = mLoginView.getText().toString();
-		mPassword = mPasswordView.getText().toString();
+		try {
+			mPassword = (new AESUtil()).encrypt(mPasswordView.getText().toString());
+		} catch (Exception e) {
+			mPassword = "";
+			e.printStackTrace();
+		} 
 
 		boolean cancel = false;
 		View focusView = null;

@@ -1,12 +1,10 @@
 package com.ta.bibbox.activity;
 
-import com.example.bibboxandroid.R;
-import com.example.bibboxandroid.R.layout;
-import com.example.bibboxandroid.R.menu;
-
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+
+import com.example.bibboxandroid.R;
 
 public class MainActivity extends BaseActivity {
 
@@ -16,5 +14,15 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();  // Always call the superclass method first
 
+		SharedPreferences pref = getSharedPreferences(LoginActivity.PREFS_NAME, MODE_PRIVATE);   
+		String login = pref.getString(LoginActivity.Login, null);
+		if(login == null){
+			Intent intent = new Intent(this, LoginActivity.class);
+			startActivity(intent);
+		}
+	}
 }

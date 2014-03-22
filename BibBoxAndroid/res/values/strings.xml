@@ -3,6 +3,7 @@
 
     <string name="app_name">BibBox</string>
     <string name="action_settings">Réglage</string>
+    <string name="action_home">Accueil</string>
     <string name="action_new_reserv">Nouvelle Réservation</string>
     <string name="action_my_reservs">Mes Réservations</string>
     <string name="action_login">Connexion</string>
@@ -33,6 +34,7 @@
     <string name="validate_reserv">Valider la réservation</string>
     <string name="cancel">Annuler</string>
     <string name="launch_search_teacher">Aucun résultat. Cliquer ici pour prendre un box réservé par des étiduants</string>
+    <string name="home_message">Réservez votre box dès maintenant</string>
 
     <string-array name="country_arrays">
         <item>Malaysia</item>

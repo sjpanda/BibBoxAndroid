@@ -44,9 +44,9 @@ public class BaseActivity extends FragmentActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle presses on the action bar items
 		switch (item.getItemId()) {
-//		case R.id.action_login:
-//			openView(LoginActivity.class);
-//			return true;
+		case R.id.action_home:
+			openView(MainActivity.class);
+			return true;
 		case R.id.action_logout:
 			logOut();
 			return true;
